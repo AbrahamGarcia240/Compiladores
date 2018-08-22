@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,45 +19,40 @@ import java.util.Map;
  * @author abraham
  */
 public class Automata {
+    
+    /*
+     El lenguaje es un arreglo dinamico de strings
+     Los estados estan guardados en un hasmap, si quiero acceder al estado 3, uso la clave 3
+     En un integer guardo el estado inicial del automata
+     Todas las trancisiones que existen en el automata tambien se guardan aqui
+     El Automata puede tener varios estados finales, los he guardado en un arreglo
+    
+    */
+    
    private ArrayList <String> Lenguaje;
    private Map <Integer,Estado> Estados;
    private Integer estadoInicial;
    private ArrayList <Transicion> Trancisiones;
-   private Integer estadoFinal;
+   private ArrayList<Integer> estadoFinal;
 
     public Automata() { 
       
        this.estadoInicial=0;
-       this.estadoFinal=0;
+       this.estadoFinal=new ArrayList<Integer>();
        this.Lenguaje=new ArrayList<String>();
        this.Estados=new HashMap <Integer, Estado>();
        this.Trancisiones= new ArrayList<Transicion>();
     }
 
-    public ArrayList<String> getLenguaje() {
-        return Lenguaje;
-    }
-
-    public Map<Integer, Estado> getEstados() {
-        return Estados;
-    }
-
- 
-
-    public void setLenguaje(ArrayList <String> Lenguaje) {
-        this.Lenguaje = Lenguaje;
-    }
-
-    public void setEstados(Map<Integer, Estado> Estados) {
-        this.Estados = Estados;
-    }
-
+    
+    
+    
     
     public void setEstadoInicial(Integer id) throws Exception{
-        if(this.estadoInicial==0){
-            if(this.Estados.containsKey(id)){
-                this.Estados.get(id).setEsInicial(true);
-                this.estadoInicial=id;
+        if(this.estadoInicial==0){ //si no hay un estado inicial
+            if(this.Estados.containsKey(id)){ //y el id que recibi es un estado que existe en el AFN
+                this.Estados.get(id).setEsInicial(true); //accedo al estado a traves del Hashmap y dentro de el prendo la bandera de inicial
+                this.estadoInicial=id; //en el AFN lo declaro como inicial
             }
             else{
                 throw new Exception("No se puede agregar el estado final, el nodo no existe");
@@ -68,8 +66,8 @@ public class Automata {
     }
 
     public void setEstadoFinal(Integer id){
-        this.Estados.get(id).setEsFinal(true);
-        this.estadoFinal=id;
+        this.Estados.get(id).setEsFinal(true); //accedo al estado a traves del Hashmap y dentro prendo la bandera de estado final
+        this.estadoFinal.add(id); //agrego el ID de este estado a la coleccion de estados finales
     }
     
     public Estado getEstadoInicial() throws Exception{
@@ -83,50 +81,74 @@ public class Automata {
         
         
     }
-    public Estado getEstadoFinal() throws Exception{
-        if(this.estadoFinal==0){
-            throw new Exception("No existe un estado final para este automata");
+  
+    /*
+        Dado un estado e, CerraduraEpsilon nos dice todos los estados a los que puedo llegar
+        usando "epsilon". 
+    
+        Esta funcion es estatica, asi que no necesito instanciar para usarla :D
+    
+        INPUT: Un objeto Estado
+        OUTPUT: Una lista de objetos Estado
+    */
+    
+    public static ArrayList<Estado> CerraduraEpsilon(Estado e){
+        ArrayList<Estado> Conjunto=new ArrayList<Estado>(); //aqui se guarda el resultado de la cerradura 
+        Deque <Estado> Pila= new ArrayDeque<Estado>(); //pila para guardar todos los estados que aun no he revisado
+       
+        Pila.push(e); //meto el primer estado para revisarlo
+        while (!Pila.isEmpty()) {  //este algoritmo se va a ejecutar siempre que hayan estados en la pila           
+            e=Pila.pop(); //saca el ultimo estado de la pila
+            if(!Conjunto.contains(e)){ //si este estado no lo he agregado al resultado
+                Conjunto.add(e); //agregalo, si estoy en el estado e, con epsilon puedo llegar a e
+                List <Transicion> Aux=e.getTrancisiones().stream() //entro al estado que estoy revisando y recorro todas las trancisiones que tiene 
+                                    .filter(x->"epsilon".equals(x.getSimbolo())) //solo me interesan las trancisiones desde "e" que me lleven a otro estado usando "epsilon"
+                                    .collect(Collectors.toList()); //las trancisiones que cumplan con esto, las guardo en una lista auxiliar
+                for(Transicion t: Aux){ //por cada trancision desde "e" que tenga como simbolo a "epsilon"
+                    if(!Conjunto.contains(t.getDestino())) //si el destino de la trancision que estoy revisando NO esta en el conjunto resultado
+                        Conjunto.add(t.getDestino()); //puedo llegar a ese nodo usando epsilon, agregalo al resultado
+                        Pila.push(t.getDestino()); //analizalo, es decir, ponlo en la pila
+                }
+                
+            }
         }
-        else{
-            return this.Estados.get(this.estadoFinal);
-        }
+        
+        return Conjunto;
     }
     
     
+    /*
+        Esta funcion regresa el estado con el indice i
+    */
     
-    
+    public Estado getEstado(int i){
+           return this.Estados.get(i);
+    }
    
     
+    /*
+       Esta funcion estatica crea el automata para detectar un caracter
+       
+    INPUT: una cadena a detectar
+    OUTPUT: un automata
     
-    public void setTrancision(int inicial, String simbolo, int destino){
-        
-        if(this.Estados.containsKey(inicial))
-        {
-            if(this.Estados.containsKey(destino)){
-                //existen las dos claves
-            }
-            else{
-                this.Estados.put(destino,new Estado(destino, false, false));
-            }
-            
-        }
-        else{
-            //creo el estado inicial
-            this.Estados.put(inicial,new Estado(inicial, false, false));
-            
-            if(this.Estados.containsKey(destino)){
-                //existen las dos claves
-            }
-            else{
-                this.Estados.put(destino,new Estado(destino, false, false));
-            }
-        }
-        
-        //aqui ya existen los dos estados, ahora hago la trans
-        
-        this.Estados.get(inicial).setTrancision(simbolo, this.Estados.get(destino));
-        
-        
+    */
+   
+    
+    public static Automata CreaAFNBasico(String simbolo){
+    
+        Automata a= new Automata(); //creo un automata nuevo, vacio
+        a.Estados.put(1,new Estado(1, false, false)); //dentro del objeto automata, agrego los dos nuevos estados
+        a.Estados.put(2,new Estado(2, false, false));
+        a.Estados.get(1).setTrancision(simbolo, a.Estados.get(2)); //del estado 1 tengo una trancision al estado 2
+        a.setEstadoFinal(2); //el estado 2 es el final
+       try { //si es que no existe un estado inicial en el AFN
+           a.setEstadoInicial(1); //el nuevo estado inicial sera el 1
+       } catch (Exception ex) {
+           System.out.println(a); 
+       }
+        a.addSimboloToLenguaje(simbolo); //agrego el nuevo lenguaje al AFN
+        return a;
     }
     
     public void printLenguaje(){
@@ -142,10 +164,14 @@ public class Automata {
     public void printAutomata(){
     
          
-        for(Map.Entry<Integer, Estado> e: this.Estados.entrySet()){
-            System.out.print(e.getValue().getId());
-          e.getValue().getTrancisiones()          
-                    .forEach(n->n.printTrancision());
+        for(Map.Entry<Integer, Estado> e: this.Estados.entrySet()){  //para cada estado del automata
+           
+            if(!e.getValue().getTrancisiones().isEmpty()){ //si el estado aun tiene trancisiones
+                System.out.print(e.getValue().getId()); //imprime el ID del estado
+                e.getValue().getTrancisiones()         //para cada una de sus trancisiones
+                        .forEach(n->n.printTrancision()); //imprime la trancision
+            }
+            
             
         }
     }

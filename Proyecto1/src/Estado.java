@@ -15,10 +15,13 @@ import java.util.Map;
  * @author abraham
  */
 public class Estado {
+    
+    // id es el identificador de cada estado, los booleanos nos dicen si es estado final o inicial
     private int id;
     private boolean esInicial;
     private boolean esFinal;
    
+    //aqui guardo todas las trancisiones que parten de este estado
     private ArrayList<Transicion> trancisiones;
 
     public Estado(int id, boolean esInicial, boolean esFinal) {

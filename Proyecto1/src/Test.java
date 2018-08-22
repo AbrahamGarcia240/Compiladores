@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,28 +16,37 @@ public class Test {
 	{
             System.out.println("Automata AUB");
             
-            Automata uno=new Automata();
             
-          
-            uno.setTrancision(1, "epsilon", 2);
-            uno.setTrancision(1, "epsilon", 4);
-            uno.setTrancision(2,"a", 3);
-            uno.setTrancision(3, "epsilon", 6);
-            uno.setTrancision(4, "b", 5);
-            uno.setTrancision(5, "epsilon", 6);
-            uno.setTrancision(6, "epsilon", 7);
-            uno.setEstadoFinal(7);
+            //Aqui creo un AFNbasico como en clase, hize uno normal y otro con epsilon
+            //de tal manera que la cerradura epsilon para "dos" dara como resultado los nodos 1 y 2
+            Automata uno=Automata.CreaAFNBasico("a");
+            Automata dos=Automata.CreaAFNBasico("epsilon");
             
-            try {
-                uno.setEstadoInicial(1);
-                System.out.println(uno.getEstadoInicial().getId());
-                System.out.println(uno.getEstadoFinal().getId());
-
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            
+            //imprimo el automata
             uno.printAutomata();
+            dos.printAutomata();
+            
+            //aqui pruebo la cerradura epsilon la cual devuelve un arreglo de todos los estados
+            //a los que puedes llegar desde el estado (x) usando epsilon
+            ArrayList<Estado>prueba= Automata.CerraduraEpsilon(uno.getEstado(1));
+            System.out.println("ceradura:");
+            //imprimo el resultado
+            prueba.forEach(n->System.out.println(n.getId()));
+            System.out.println("fin");
+            
+            System.out.println("\n");
+            
+            //ahora pruebo la cerradura epsilon con dos, en este caso puedo llegar a todos los nodos
+            //con epsilon
+            prueba= Automata.CerraduraEpsilon(dos.getEstado(1));
+            System.out.println("ceradura:");
+            prueba.forEach(n->System.out.println(n.getId()));
+            System.out.println("fin");
+            
+            
+            System.out.println("\n");
+            
+            //por ultimo imprimo el lenguaje de uno
             uno.printLenguaje();
 	}
 }
