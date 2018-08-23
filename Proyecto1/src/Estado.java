@@ -62,6 +62,10 @@ public class Estado {
         this.trancisiones.add(new Transicion(simbolo,destino));
        
     }
+    
+    public void addTrancision(Transicion t){
+        this.trancisiones.add(t);
+    }
 
     public ArrayList<Transicion> getTrancisiones() {
         return trancisiones;

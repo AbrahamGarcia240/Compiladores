@@ -216,6 +216,27 @@ public class Automata {
     }
     
     
+    public Automata ConcatenarAutomata(Automata f2){
+        for(Estado e: this.getEstadoFinal()){
+            e.setEsFinal(false);
+            try {
+                for(Transicion t: f2.getEstadoInicial().getTrancisiones()){
+                e.addTrancision(t);
+                }
+                
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            
+        }
+        this.getEstadoFinal().clear();
+        f2.estadoFinal.forEach(n->this.getEstadoFinal().add(n));
+        this.Lenguaje=Automata.UnionAlfabeto(this.Lenguaje, f2.Lenguaje);
+        
+    
+        return this;
+    }
+    
     
     public static ArrayList<Estado> Ir_A(Estado e, Character c){        
         return Automata.CerraduraConjunto(Automata.Mover(e, c));
@@ -289,6 +310,22 @@ public class Automata {
             
             
         }
+        
+        System.out.print("Estado inicial:");
+        try {
+                    System.out.println(this.getEstadoInicial().getId());
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.print("Estado(s) final(es):");
+        try {
+            
+            this.getEstadoFinal().forEach(n->System.out.println(n.getId()));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("\n");
     }
     
     

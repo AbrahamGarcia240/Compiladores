@@ -90,6 +90,13 @@ public class Test {
             System.out.println("fin\n");
             
             
+            System.out.println("Concatenacion");
+            uno.ConcatenarAutomata(new Automata().CreaAFNBasico('c'));
+            uno.printAutomata();
+            uno.printLenguaje();
+            System.out.println("fin\n");
+            
+            
             
            
             
