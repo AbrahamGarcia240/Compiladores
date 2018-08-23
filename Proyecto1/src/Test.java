@@ -19,8 +19,8 @@ public class Test {
             
             //Aqui creo un AFNbasico como en clase, hize uno normal y otro con epsilon
             //de tal manera que la cerradura epsilon para "dos" dara como resultado los nodos 1 y 2
-            Automata uno=Automata.CreaAFNBasico("a");
-            Automata dos=Automata.CreaAFNBasico("epsilon");
+            Automata uno=Automata.CreaAFNBasico('a');
+            Automata dos=Automata.CreaAFNBasico('\0');
             
             //imprimo el automata
             uno.printAutomata();
@@ -38,7 +38,11 @@ public class Test {
             
             //ahora pruebo la cerradura epsilon con dos, en este caso puedo llegar a todos los nodos
             //con epsilon
-            prueba= Automata.CerraduraEpsilon(dos.getEstado(1));
+            try {
+                 prueba= Automata.CerraduraEpsilon(dos.getEstadoInicial());
+            } catch (Exception e) {
+            }
+           
             System.out.println("ceradura:");
             prueba.forEach(n->System.out.println(n.getId()));
             System.out.println("fin");

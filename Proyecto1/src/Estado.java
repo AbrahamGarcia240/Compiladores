@@ -17,7 +17,7 @@ import java.util.Map;
 public class Estado {
     
     // id es el identificador de cada estado, los booleanos nos dicen si es estado final o inicial
-    //private static int IdEdoAct=0
+    private static int IdEdoAct=1;
     private int id;
     private boolean esInicial;
     private boolean esFinal;
@@ -25,9 +25,9 @@ public class Estado {
     //aqui guardo todas las trancisiones que parten de este estado
     private ArrayList<Transicion> trancisiones;
 
-    public Estado(int id, boolean esInicial, boolean esFinal) {
-        //this.id = idEdoAct++;
-        this.id = id;
+    public Estado(boolean esInicial, boolean esFinal) {
+        this.id = Estado.IdEdoAct++;
+        //this.id = id;
         this.esInicial = esInicial;
         this.esFinal = esFinal;
         this.trancisiones= new ArrayList<Transicion>();
@@ -39,18 +39,16 @@ public class Estado {
     }
 
     public boolean isEsInicial() {
-        return esInicial;
+        return this.esInicial;
     }
 
     public boolean isEsFinal() {
-        return esFinal;
+        return this.esFinal;
     }
 
 
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    
 
     public void setEsInicial(boolean esInicial) {
         this.esInicial = esInicial;
@@ -60,7 +58,7 @@ public class Estado {
         this.esFinal = esFinal;
     }
 
-    public void setTrancision( String simbolo, Estado destino ) {
+    public void setTrancision( Character simbolo, Estado destino ) {
         this.trancisiones.add(new Transicion(simbolo,destino));
        
     }

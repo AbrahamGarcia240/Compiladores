@@ -9,24 +9,24 @@
  * @author abraham
  */
 public class Transicion {
-    private String simbolo;
-    private char MinSimb;
-    private char MaxSimb;
+    private Character simbolo;
+    private Character MinSimb;
+    private Character MaxSimb;
     private Estado destino;
 
-    public Transicion(char MinSimb, char MaxSimb, Estado destino) {
+    public Transicion(Character MinSimb, Character MaxSimb, Estado destino) {
         this.MinSimb = MinSimb;
         this.MaxSimb = MaxSimb;
         this.destino = destino;
     }
 
     
-    public Transicion(String simbolo, Estado destino) {
+    public Transicion(Character simbolo, Estado destino) {
         this.simbolo = simbolo;
         this.destino = destino;
     }
 
-    public String getSimbolo() {
+    public Character getSimbolo() {
         return simbolo;
     }
 
@@ -34,7 +34,7 @@ public class Transicion {
         return destino;
     }
 
-    public void setSimbolo(String simbolo) {
+    public void setSimbolo(Character simbolo) {
         this.simbolo = simbolo;
     }
 

@@ -29,7 +29,7 @@ public class Automata {
     
     */
     
-   private ArrayList <String> Lenguaje;
+   private ArrayList <Character> Lenguaje;
    private Map <Integer,Estado> Estados;
    private Integer estadoInicial;
    private ArrayList <Transicion> Trancisiones;
@@ -39,7 +39,7 @@ public class Automata {
       
        this.estadoInicial=0;
        this.estadoFinal=new ArrayList<Integer>();
-       this.Lenguaje=new ArrayList<String>();
+       this.Lenguaje=new ArrayList<Character>();
        this.Estados=new HashMap <Integer, Estado>();
        this.Trancisiones= new ArrayList<Transicion>();
     }
@@ -102,7 +102,7 @@ public class Automata {
             if(!Conjunto.contains(e)){ //si este estado no lo he agregado al resultado
                 Conjunto.add(e); //agregalo, si estoy en el estado e, con epsilon puedo llegar a e
                 List <Transicion> Aux=e.getTrancisiones().stream() //entro al estado que estoy revisando y recorro todas las trancisiones que tiene 
-                                    .filter(x->"epsilon".equals(x.getSimbolo())) //solo me interesan las trancisiones desde "e" que me lleven a otro estado usando "epsilon"
+                                    .filter(x->new Character('\0').equals(x.getSimbolo())) //solo me interesan las trancisiones desde "e" que me lleven a otro estado usando "epsilon"
                                     .collect(Collectors.toList()); //las trancisiones que cumplan con esto, las guardo en una lista auxiliar
                 for(Transicion t: Aux){ //por cada trancision desde "e" que tenga como simbolo a "epsilon"
                     if(!Conjunto.contains(t.getDestino())) //si el destino de la trancision que estoy revisando NO esta en el conjunto resultado
@@ -135,15 +135,18 @@ public class Automata {
     */
    
     
-    public static Automata CreaAFNBasico(String simbolo){
+    public static Automata CreaAFNBasico(Character simbolo){
     
         Automata a= new Automata(); //creo un automata nuevo, vacio
-        a.Estados.put(1,new Estado(1, false, false)); //dentro del objeto automata, agrego los dos nuevos estados
-        a.Estados.put(2,new Estado(2, false, false));
-        a.Estados.get(1).setTrancision(simbolo, a.Estados.get(2)); //del estado 1 tengo una trancision al estado 2
-        a.setEstadoFinal(2); //el estado 2 es el final
+        Estado e1=new Estado(true, false);
+        Estado e2=new Estado(false, true);
+        a.Estados.put(e1.getId(), e1);
+        a.Estados.put(e2.getId(), e2);
+        
+        a.Estados.get(e1.getId()).setTrancision(simbolo, a.Estados.get(e2.getId())); //del estado 1 tengo una trancision al estado 2
+        a.setEstadoFinal(e2.getId()); //el estado 2 es el final
        try { //si es que no existe un estado inicial en el AFN
-           a.setEstadoInicial(1); //el nuevo estado inicial sera el 1
+           a.setEstadoInicial(e1.getId()); //el nuevo estado inicial sera el 1
        } catch (Exception ex) {
            System.out.println(a); 
        }
@@ -154,7 +157,7 @@ public class Automata {
     public void printLenguaje(){
         this.Lenguaje.forEach(n-> System.out.println(n) );
     }
-    public void addSimboloToLenguaje(String e){
+    public void addSimboloToLenguaje(Character e){
         if(!this.Lenguaje.contains(e))
             this.Lenguaje.add(e);
     }
