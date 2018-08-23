@@ -33,12 +33,12 @@ public class Automata {
    private Map <Integer,Estado> Estados;
    private Integer estadoInicial;
    private ArrayList <Transicion> Trancisiones;
-   private ArrayList<Integer> estadoFinal;
+   private ArrayList<Estado> estadoFinal;
 
     public Automata() { 
       
        this.estadoInicial=0;
-       this.estadoFinal=new ArrayList<Integer>();
+       this.estadoFinal=new ArrayList<Estado>();
        this.Lenguaje=new ArrayList<Character>();
        this.Estados=new HashMap <Integer, Estado>();
        this.Trancisiones= new ArrayList<Transicion>();
@@ -67,7 +67,7 @@ public class Automata {
 
     public void setEstadoFinal(Integer id){
         this.Estados.get(id).setEsFinal(true); //accedo al estado a traves del Hashmap y dentro prendo la bandera de estado final
-        this.estadoFinal.add(id); //agrego el ID de este estado a la coleccion de estados finales
+        this.estadoFinal.add(this.Estados.get(id)); //agrego el ID de este estado a la coleccion de estados finales
     }
     
     public Estado getEstadoInicial() throws Exception{
@@ -81,7 +81,12 @@ public class Automata {
         
         
     }
+
+    public ArrayList<Estado> getEstadoFinal() {
+        return estadoFinal;
+    }
   
+    
     /*
         Dado un estado e, CerraduraEpsilon nos dice todos los estados a los que puedo llegar
         usando "epsilon". 
@@ -117,12 +122,119 @@ public class Automata {
     }
     
     
+    
+    
+     
+    public static ArrayList<Estado> Union(ArrayList<Estado>a,ArrayList<Estado> b){
+        for(Estado nuevo: b){
+            if(!a.contains(nuevo))
+                a.add(nuevo);
+        }
+        
+        return a;
+    }
+    
+    public static ArrayList<Character> UnionAlfabeto(ArrayList<Character>a,ArrayList<Character> b){
+        for(Character nuevo: b){
+            if(!a.contains(nuevo))
+                a.add(nuevo);
+        }
+        
+        return a;
+    }
+    
+    public static ArrayList<Estado> CerraduraConjunto(ArrayList<Estado>Conjunto){
+        ArrayList<Estado> Respuesta=new ArrayList<Estado>();
+        for(Estado e: Conjunto){
+            Automata.Union(Respuesta, Automata.CerraduraEpsilon(e));
+                    
+        }
+    
+        return Respuesta;
+    }
+    
+    
+    public static ArrayList<Estado> Mover(Estado e, Character c){
+        ArrayList<Estado> Resultado=new ArrayList<Estado>();
+        for(Transicion t: e.getTrancisiones()){
+            if(t.getSimbolo().equals(c))
+                Resultado.add(t.getDestino());
+        }
+        return Resultado;
+                
+    }
+    
+    
+    public static ArrayList<Estado> Mover(ArrayList<Estado> Conjunto,Character c){
+        ArrayList<Estado> Respuesta=new ArrayList<Estado>();
+        for(Estado e: Conjunto){
+            Automata.Union(Respuesta, Automata.Mover(e,c));
+                    
+        }
+    
+        return Respuesta;
+    }
+    
+   
+    public Automata UnirAutomata(Automata f2){
+        Estado e1, e2;
+        e1=new Estado(true, false);
+        this.Estados.put(e1.getId(), e1);
+        e2=new Estado(false, true);
+        this.Estados.put(e2.getId(), e2);
+        
+        
+        for(Map.Entry<Integer,Estado> e: f2.Estados.entrySet()){
+            this.Estados.put(e.getKey(),e.getValue());
+        }
+        
+        try {
+            e1.setTrancision('\0',this.getEstadoInicial());
+            e1.setTrancision('\0', f2.getEstadoInicial());
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        
+        for(Estado e: this.getEstadoFinal()){
+            e.setTrancision('\0', e2);
+            e.setEsFinal(false);
+        }
+        
+        for(Estado e: f2.getEstadoFinal()){
+            e.setTrancision('\0', e2);
+            e.setEsFinal(false);
+        }
+        
+        this.estadoFinal.clear();
+        this.estadoFinal.add(e2);
+        
+        this.Lenguaje=Automata.UnionAlfabeto(this.Lenguaje, f2.Lenguaje);
+        return this;
+        
+    }
+    
+    
+    
+    public static ArrayList<Estado> Ir_A(Estado e, Character c){        
+        return Automata.CerraduraConjunto(Automata.Mover(e, c));
+    }
+    
+    
+    public static ArrayList<Estado> Ir_A(ArrayList<Estado>Conjunto, Character c){        
+        return Automata.CerraduraConjunto(Automata.Mover(Conjunto, c));
+    }
+    
     /*
         Esta funcion regresa el estado con el indice i
     */
     
-    public Estado getEstado(int i){
-           return this.Estados.get(i);
+    public Estado getEstado(int i) throws Exception{
+            if(this.Estados.containsKey(i))
+                return this.Estados.get(i);
+            else
+                throw new Exception("No existe un estado para este automata");
     }
    
     
@@ -169,11 +281,11 @@ public class Automata {
          
         for(Map.Entry<Integer, Estado> e: this.Estados.entrySet()){  //para cada estado del automata
            
-            if(!e.getValue().getTrancisiones().isEmpty()){ //si el estado aun tiene trancisiones
+          
                 System.out.print(e.getValue().getId()); //imprime el ID del estado
                 e.getValue().getTrancisiones()         //para cada una de sus trancisiones
                         .forEach(n->n.printTrancision()); //imprime la trancision
-            }
+           
             
             
         }
