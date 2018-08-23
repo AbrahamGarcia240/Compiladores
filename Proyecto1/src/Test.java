@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -97,7 +98,20 @@ public class Test {
             System.out.println("fin\n");
             
             
+            /*try {
+                          for(Map.Entry<Integer,Estado>m:uno.Estados.entrySet()){
+                              System.out.println(m.getKey());
+                          }
+
+            } catch (Exception e) {
+            }*/
             
+            System.out.println("Cerradura estrella");
+            uno.CerraduraEstrella();
+            uno.printAutomata();
+            uno.printLenguaje();
+            System.out.println("fin\n");
+                        
            
             
             //por ultimo imprimo el lenguaje de uno

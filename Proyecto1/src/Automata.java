@@ -30,7 +30,7 @@ public class Automata {
     */
     
    private ArrayList <Character> Lenguaje;
-   private Map <Integer,Estado> Estados;
+    Map <Integer,Estado> Estados;
    private Integer estadoInicial;
    private ArrayList <Transicion> Trancisiones;
    private ArrayList<Estado> estadoFinal;
@@ -209,6 +209,12 @@ public class Automata {
         
         this.estadoFinal.clear();
         this.estadoFinal.add(e2);
+        this.estadoInicial=e1.getId();
+        try {
+            this.getEstadoInicial().setEsInicial(false);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         
         this.Lenguaje=Automata.UnionAlfabeto(this.Lenguaje, f2.Lenguaje);
         return this;
@@ -217,6 +223,10 @@ public class Automata {
     
     
     public Automata ConcatenarAutomata(Automata f2){
+         for(Map.Entry<Integer,Estado> e: f2.Estados.entrySet()){
+             if(!e.getValue().isEsInicial())
+                this.Estados.put(e.getKey(),e.getValue());
+        }
         for(Estado e: this.getEstadoFinal()){
             e.setEsFinal(false);
             try {
@@ -232,6 +242,44 @@ public class Automata {
         this.getEstadoFinal().clear();
         f2.estadoFinal.forEach(n->this.getEstadoFinal().add(n));
         this.Lenguaje=Automata.UnionAlfabeto(this.Lenguaje, f2.Lenguaje);
+        
+    
+        return this;
+    }
+    
+    
+    public Automata CerraduraEstrella(){
+        
+        Estado e1, e2;
+        e1=new Estado(true, false);
+        this.Estados.put(e1.getId(), e1);
+        e2=new Estado(false, true);
+        this.Estados.put(e2.getId(), e2);
+        
+        for(Estado e: this.estadoFinal){
+           e.setTrancision('\0', e2);
+           
+            try {
+                e.setTrancision('\0', this.getEstadoInicial());
+                
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            e.setEsFinal(false);
+           
+        }
+        try {
+             e1.setTrancision('\0', this.getEstadoInicial());
+             e1.setTrancision('\0', e2);
+             this.getEstadoInicial().setEsInicial(false);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        this.estadoFinal.clear();
+        this.estadoFinal.add(e2);
+        this.estadoInicial=e1.getId();
         
     
         return this;
