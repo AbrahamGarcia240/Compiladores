@@ -111,6 +111,24 @@ public class Test {
             uno.printAutomata();
             uno.printLenguaje();
             System.out.println("fin\n");
+            
+            System.out.println("ir_a");
+            try {
+                 prueba2=Automata.Ir_A(uno.getEstado(1), 'a');
+                 prueba2.forEach(n-> System.out.println(n.getId()));
+                System.out.println("\n");               
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            
+            System.out.println("Cerradura");
+            try {
+                 prueba2=Automata.CerraduraEpsilon(uno.getEstadoInicial());
+                 prueba2.forEach(n-> System.out.println(n.getId()));
+                System.out.println("\n");               
+            } catch (Exception e) {
+                System.out.println(e);
+            }
                         
            
             

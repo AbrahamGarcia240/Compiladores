@@ -285,6 +285,43 @@ public class Automata {
         return this;
     }
     
+    public Automata CerraduraMas(){
+        
+        Estado e1, e2;
+        e1=new Estado(true, false);
+        this.Estados.put(e1.getId(), e1);
+        e2=new Estado(false, true);
+        this.Estados.put(e2.getId(), e2);
+        
+        for(Estado e: this.estadoFinal){
+           e.setTrancision('\0', e2);
+           
+            try {
+                e.setTrancision('\0', this.getEstadoInicial());
+                
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+            e.setEsFinal(false);
+           
+        }
+        try {
+             e1.setTrancision('\0', this.getEstadoInicial());
+           
+             this.getEstadoInicial().setEsInicial(false);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        this.estadoFinal.clear();
+        this.estadoFinal.add(e2);
+        this.estadoInicial=e1.getId();
+        
+    
+        return this;
+    }
+    
     
     public static ArrayList<Estado> Ir_A(Estado e, Character c){        
         return Automata.CerraduraConjunto(Automata.Mover(e, c));
