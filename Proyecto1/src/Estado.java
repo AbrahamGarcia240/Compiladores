@@ -17,6 +17,7 @@ import java.util.Map;
 public class Estado {
     
     // id es el identificador de cada estado, los booleanos nos dicen si es estado final o inicial
+    //private static int IdEdoAct=0
     private int id;
     private boolean esInicial;
     private boolean esFinal;
@@ -25,6 +26,7 @@ public class Estado {
     private ArrayList<Transicion> trancisiones;
 
     public Estado(int id, boolean esInicial, boolean esFinal) {
+        //this.id = idEdoAct++;
         this.id = id;
         this.esInicial = esInicial;
         this.esFinal = esFinal;

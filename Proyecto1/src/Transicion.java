@@ -10,8 +10,17 @@
  */
 public class Transicion {
     private String simbolo;
+    private char MinSimb;
+    private char MaxSimb;
     private Estado destino;
 
+    public Transicion(char MinSimb, char MaxSimb, Estado destino) {
+        this.MinSimb = MinSimb;
+        this.MaxSimb = MaxSimb;
+        this.destino = destino;
+    }
+
+    
     public Transicion(String simbolo, Estado destino) {
         this.simbolo = simbolo;
         this.destino = destino;
