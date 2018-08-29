@@ -244,6 +244,7 @@ public class Automata {
         this.Estados.put(e2.getId(), e2);
 
         for (Map.Entry<Integer, Estado> e : f2.Estados.entrySet()) {
+           
             this.Estados.put(e.getKey(), e.getValue());
         }
 
@@ -267,9 +268,11 @@ public class Automata {
 
         this.estadoFinal.clear();
         this.estadoFinal.add(e2);
-        this.estadoInicial = e1.getId();
+      
         try {
             this.getEstadoInicial().setEsInicial(false);
+              this.estadoInicial = e1.getId();
+            f2.getEstadoInicial().setEsInicial(false);
         } catch (Exception e) {
             System.out.println(e);
         }
