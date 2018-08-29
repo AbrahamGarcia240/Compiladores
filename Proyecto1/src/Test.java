@@ -32,7 +32,7 @@ public class Test {
             dos.printAutomata();
             
             uno=uno.UnirAutomata(dos); //alo
-            uno=uno.CerraduraPregunta();
+            uno=uno.CerraduraEstrella();
             Automata tres=Automata.CreaAFNBasico('c');
             
             tres=tres.CerraduraMas();
