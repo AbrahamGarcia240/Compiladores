@@ -46,6 +46,107 @@ public class Automata {
 
     
     
+     Boolean SnEsFinal(ArrayList<Estado> Sn)
+    {
+        for(Estado e: Sn){
+            if(e.isEsFinal())
+                return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+    
+    public AFD AFNtoAFD(){
+      
+        AFD nuevo=new AFD();
+        Map<Integer,ArrayList<Estado>> Sn= new HashMap<Integer,ArrayList<Estado>>(); // lista de estados del AFD
+        Stack<ArrayList<Estado>> E= new Stack<ArrayList<Estado>>(); //pila auxiliar del algoritmo
+        int j=nuevo.AgregaEstado(); //para cada Sn mapeo un nuevo estado en el AFD
+        
+       try {
+           nuevo.setEstadoInicial(j);
+           
+           Sn.put(j, Automata.CerraduraEpsilon(this.getEstadoInicial())); //<0,So={0,1,2,4,7,8}>  
+           /*System.out.print(j);
+           System.out.print(":");
+           Sn.get(j).forEach(n->System.out.print(" ".concat(String.valueOf(n.getId()))));
+           System.out.println(" ");*/
+           
+           
+       } catch (Exception ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        E.push(Sn.get(j));
+       
+  
+    
+           ArrayList<Estado> lista,Aux;
+           while(E.size()!=0){
+               
+               lista=E.pop(); //lista=So
+               for(Map.Entry<Integer,ArrayList<Estado>> entry: Sn.entrySet()){
+                           if(lista.equals(entry.getValue())){
+                               j=entry.getKey();
+                              // if(SnEsFinal(Aux))
+                                //    nuevo.setEstadoFinal(entry.getKey());
+                               break;
+                           }
+                 }
+               
+               
+               System.out.println("con lista");
+               System.out.print(j);
+                System.out.print(":");
+                lista.forEach(n->System.out.print(" ".concat(String.valueOf(n.getId()))));
+                System.out.println(" ");
+               
+               for(Character c: this.getLenguaje()){
+                   Aux=Automata.Ir_A(lista, c); //Aux=S1
+                   //if(!Aux.isEmpty()){
+                        System.out.println("");
+                   System.out.print("Ir a(");
+                   System.out.print(j);
+                   System.out.print(",");
+                   System.out.print(c);
+                   System.out.print(")= ");
+                   Aux.forEach(n->System.out.print(" ".concat(String.valueOf(n.getId()))));
+                   System.out.print(" llamado: ");
+                   //}
+                   
+                  
+                   
+                   if(!Sn.containsValue(Aux) && Aux.size()!=0 ){ 
+                       int l=nuevo.AgregaEstado();
+                       System.out.println(l);
+                       Sn.put(l, Aux);
+                       E.add(Aux);
+                       nuevo.AgregaTracision(j, c, l);
+                       //if(SnEsFinal(Aux))
+                         //  nuevo.setEstadoFinal(l);
+                       
+                   }
+                   else{
+                       for(Map.Entry<Integer,ArrayList<Estado>> entry: Sn.entrySet()){
+                           if(Aux.equals(entry.getValue())){
+                               System.out.println(entry.getKey());
+                               nuevo.AgregaTracision(j, c, entry.getKey());
+                              // if(SnEsFinal(Aux))
+                                //    nuevo.setEstadoFinal(entry.getKey());
+                               break;
+                           }
+                       }
+                       
+                   }
+                   
+                   
+                   
+                    
+               }
+               
+              
+           }
+       return nuevo;
+    
+    }
     
     
     public void setEstadoInicial(Integer id) throws Exception{
@@ -97,25 +198,36 @@ public class Automata {
         OUTPUT: Una lista de objetos Estado
     */
     
+    
+    
+    
     public static ArrayList<Estado> CerraduraEpsilon(Estado e){
         ArrayList<Estado> Conjunto=new ArrayList<Estado>(); //aqui se guarda el resultado de la cerradura 
         Deque <Estado> Pila= new ArrayDeque<Estado>(); //pila para guardar todos los estados que aun no he revisado
        
         Pila.push(e); //meto el primer estado para revisarlo
-        while (!Pila.isEmpty()) {  //este algoritmo se va a ejecutar siempre que hayan estados en la pila           
+        while (!Pila.isEmpty()) {  //este algoritmo se va a ejecutar siempre que hayan estados en la pila 
+            //System.out.print("tamaño pila:");
+            //System.out.println(Pila.size());
             e=Pila.pop(); //saca el ultimo estado de la pila
-            if(!Conjunto.contains(e)){ //si este estado no lo he agregado al resultado
+           
                 Conjunto.add(e); //agregalo, si estoy en el estado e, con epsilon puedo llegar a e
                 List <Transicion> Aux=e.getTrancisiones().stream() //entro al estado que estoy revisando y recorro todas las trancisiones que tiene 
                                     .filter(x->new Character('\0').equals(x.getSimbolo())) //solo me interesan las trancisiones desde "e" que me lleven a otro estado usando "epsilon"
                                     .collect(Collectors.toList()); //las trancisiones que cumplan con esto, las guardo en una lista auxiliar
+                
+
                 for(Transicion t: Aux){ //por cada trancision desde "e" que tenga como simbolo a "epsilon"
-                    if(!Conjunto.contains(t.getDestino())) //si el destino de la trancision que estoy revisando NO esta en el conjunto resultado
+                    if(!Conjunto.contains(t.getDestino())){ //si el destino de la trancision que estoy revisando NO esta en el conjunto resultado
+                       
+                         if(!Conjunto.contains(e)){
                         Conjunto.add(t.getDestino()); //puedo llegar a ese nodo usando epsilon, agregalo al resultado
-                        Pila.push(t.getDestino()); //analizalo, es decir, ponlo en la pila
+                         }
+                        Pila.push(t.getDestino());//analizalo, es decir, ponlo en la pila
+                    }
                 }
                 
-            }
+           
         }
         
         return Conjunto;
@@ -222,6 +334,8 @@ public class Automata {
     }
     
     
+    
+    
     public Automata ConcatenarAutomata(Automata f2){
          for(Map.Entry<Integer,Estado> e: f2.Estados.entrySet()){
              if(!e.getValue().isEsInicial())
@@ -247,6 +361,39 @@ public class Automata {
         return this;
     }
     
+    
+    public Automata CerraduraPregunta(){
+        Estado e1, e2;
+        e1=new Estado(true, false);
+        this.Estados.put(e1.getId(), e1);
+        e2=new Estado(false, true);
+        this.Estados.put(e2.getId(), e2);
+        
+        for(Estado e: this.estadoFinal){
+           e.setTrancision('\0', e2);
+           
+      
+            e.setEsFinal(false);
+           
+        }
+        try {
+             e1.setTrancision('\0', this.getEstadoInicial());
+             e1.setTrancision('\0', e2);
+             this.getEstadoInicial().setEsInicial(false);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        this.estadoFinal.clear();
+        this.estadoFinal.add(e2);
+        this.estadoInicial=e1.getId();
+        
+    
+        return this;
+        
+        
+    }
     
     public Automata CerraduraEstrella(){
         
@@ -378,6 +525,10 @@ public class Automata {
     public void addSimboloToLenguaje(Character e){
         if(!this.Lenguaje.contains(e))
             this.Lenguaje.add(e);
+    }
+
+    public ArrayList<Character> getLenguaje() {
+        return Lenguaje;
     }
 
   
