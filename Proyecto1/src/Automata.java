@@ -120,8 +120,8 @@ public class Automata {
                        Sn.put(l, Aux);
                        E.add(Aux);
                        nuevo.AgregaTracision(j, c, l);
-                       //if(SnEsFinal(Aux))
-                         //  nuevo.setEstadoFinal(l);
+                       if(SnEsFinal(Aux))
+                           nuevo.setEstadoFinal(l);
                        
                    }
                    else{
@@ -129,8 +129,8 @@ public class Automata {
                            if(Aux.equals(entry.getValue())){
                                System.out.println(entry.getKey());
                                nuevo.AgregaTracision(j, c, entry.getKey());
-                              // if(SnEsFinal(Aux))
-                                //    nuevo.setEstadoFinal(entry.getKey());
+                               if(SnEsFinal(Aux))
+                                    nuevo.setEstadoFinal(entry.getKey());
                                break;
                            }
                        }

@@ -22,6 +22,7 @@ public class AFD {
     public AFD() {
         Estados=new HashMap<Integer, Estado>();
         estadoInicial=0;
+        estadoFinal=new ArrayList<Estado>();
     }
     
     public int AgregaEstado(){
@@ -54,9 +55,10 @@ public class AFD {
     }
 
     public void setEstadoFinal(Integer id){
-        System.out.println(this.Estados.get(id));
+        //System.out.println(this.Estados.get(id));
         this.Estados.get(id).setEsFinal(true); //accedo al estado a traves del Hashmap y dentro prendo la bandera de estado final
-        this.estadoFinal.add(this.Estados.get(id)); //agrego el ID de este estado a la coleccion de estados finales
+        if(!estadoFinal.contains(this.Estados.get(id)))
+            this.estadoFinal.add(this.Estados.get(id)); //agrego el ID de este estado a la coleccion de estados finales
     }
     
     public Estado getEstadoInicial() throws Exception{
