@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import sun.security.provider.VerificationProvider;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -235,6 +236,36 @@ public class Automata {
 
         return Respuesta;
     }
+    
+    
+    public static Automata AgregaATotal(Automata destino, Automata fn){
+        try {
+            Estado verifcador=destino.getEstadoInicial();
+            
+            verifcador.setTrancision('\0', fn.getEstadoInicial());
+            for(Estado e: fn.getEstadoFinal()){
+                destino.estadoFinal.add(e);
+            }
+            for(Map.Entry<Integer,Estado>e:fn.Estados.entrySet()){
+                destino.Estados.put(e.getKey(), e.getValue());
+            }
+            for(Character c: fn.getLenguaje()){
+                destino.addSimboloToLenguaje(c);
+            }
+            
+            fn.getEstadoInicial().setEsInicial(false);
+            
+        } catch (Exception e) {
+            
+            destino=Automata.CreaAFNBasico('\0');
+            destino.ConcatenarAutomata(fn);
+            
+            
+        }
+    
+        return destino;
+    }
+    
 
     public Automata UnirAutomata(Automata f2) {
         Estado e1, e2;
@@ -473,8 +504,12 @@ public class Automata {
         for (Map.Entry<Integer, Estado> e : this.Estados.entrySet()) {  //para cada estado del automata
 
             System.out.print(e.getValue().getId()); //imprime el ID del estado
-            e.getValue().getTrancisiones() //para cada una de sus trancisiones
+            
+                e.getValue().getTrancisiones() //para cada una de sus trancisiones
                     .forEach(n -> n.printTrancision()); //imprime la trancision
+                
+            
+            
 
         }
 

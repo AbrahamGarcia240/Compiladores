@@ -19,37 +19,48 @@ public class Test {
 	{
             System.out.println("Automata AUB");
             
-           Automata uno=Automata.CreaAFNBasico('+');
-           uno.printAutomata();
+           Automata uno=Automata.CreaAFNBasico('L');
+           //uno.printAutomata();
            Automata dos=Automata.CreaAFNBasico('M');
-           dos.printAutomata();
-           
+           //dos.printAutomata();
            uno.UnirAutomata(dos);
            uno.printAutomata();
            
            
-           uno.CerraduraPregunta();
-           uno.printAutomata();
-           
            Automata tres=Automata.CreaAFNBasico('D');
-           tres.printAutomata();
+           //tres.printAutomata();
+           Automata cuatro=Automata.CreaAFNBasico('T');
+           //cuatro.printAutomata();
            
-           tres.CerraduraMas();
-           tres.printAutomata();
+           tres.UnirAutomata(cuatro);
            
-           Automata cuatro=Automata.CreaAFNBasico('D');
+           tres.printAutomata();
+          
+           cuatro=Automata.AgregaATotal(new Automata(), uno);
+           
+           
            cuatro.printAutomata();
+          
            
-           cuatro.CerraduraMas();
+           cuatro=Automata.AgregaATotal(cuatro, tres);
            cuatro.printAutomata();
-           
-           
-           tres.ConcatenarAutomata(cuatro);
-           tres.printAutomata();
-           
-           
-           uno.ConcatenarAutomata(tres);
-           uno.printAutomata();
+            System.out.println("PRIMERA PRUEBA TERMINA");
+            
+          Automata cinco= Automata.CreaAFNBasico('S');
+          cinco.printAutomata();
+          Automata seis= Automata.CreaAFNBasico('T');
+          seis.printAutomata();
+          cinco.UnirAutomata(seis);
+          cinco.printAutomata();
+          cinco.CerraduraMas();
+          cinco.printAutomata();
+          
+          System.out.println("INICIO SEGUNDA PRUEBA");
+          cuatro=Automata.AgregaATotal(cuatro, cinco);
+          cuatro.printAutomata();
+            System.out.println("FIN PRUEBA 2");
+          
+          
            
            
            
