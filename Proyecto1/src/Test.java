@@ -55,10 +55,17 @@ public class Test {
           cinco.CerraduraMas();
           cinco.printAutomata();
           
+         AFD m= cinco.AFNtoAFD();
+         m.printAutomata();
+          
           System.out.println("INICIO SEGUNDA PRUEBA");
           cuatro=Automata.AgregaATotal(cuatro, cinco);
           cuatro.printAutomata();
             System.out.println("FIN PRUEBA 2");
+         cuatro.printLenguaje();
+         AFD miau=cuatro.AFNtoAFD();
+         
+         miau.printAutomata();
           
           
            

@@ -259,7 +259,7 @@ public class Automata {
             
             destino=Automata.CreaAFNBasico('\0');
             destino.ConcatenarAutomata(fn);
-            
+            destino.Lenguaje.remove(0);
             
         }
     
