@@ -19,57 +19,132 @@ public class Test {
 	{
             System.out.println("Automata AUB");
             
-           Automata uno=Automata.CreaAFNBasico('L');
+           Automata uno=Automata.CreaAFNBasico('+');
            //uno.printAutomata();
-           Automata dos=Automata.CreaAFNBasico('M');
+           Automata dos= Automata.CreaAFNBasico('M');
            //dos.printAutomata();
            uno.UnirAutomata(dos);
+           //uno.printAutomata();
+           uno.CerraduraPregunta();
+           //uno.printAutomata();
+           Automata tres= Automata.CreaAFNBasico('D');
+           //tres.printAutomata();
+           tres.CerraduraMas();
+           //tres.printAutomata();
+           uno.ConcatenarAutomata(tres);
            uno.printAutomata();
            
            
-           Automata tres=Automata.CreaAFNBasico('D');
-           //tres.printAutomata();
-           Automata cuatro=Automata.CreaAFNBasico('T');
-           //cuatro.printAutomata();
-           
-           tres.UnirAutomata(cuatro);
-           
-           tres.printAutomata();
-          
-           cuatro=Automata.AgregaATotal(new Automata(), uno);
            
            
-           cuatro.printAutomata();
-          
-           
-           cuatro=Automata.AgregaATotal(cuatro, tres);
-           cuatro.printAutomata();
-            System.out.println("PRIMERA PRUEBA TERMINA");
+            System.out.println("Automata 2");
             
-          Automata cinco= Automata.CreaAFNBasico('S');
-          cinco.printAutomata();
-          Automata seis= Automata.CreaAFNBasico('T');
-          seis.printAutomata();
-          cinco.UnirAutomata(seis);
-          cinco.printAutomata();
-          cinco.CerraduraMas();
-          cinco.printAutomata();
+            Automata cuatro=Automata.CreaAFNBasico('+');
+            
+           //cuatro.printAutomata();
+           Automata cinco= Automata.CreaAFNBasico('M');
+           //cinco.printAutomata();
+           cuatro.UnirAutomata(cinco);
+           //cuatro.printAutomata();
+           cuatro.CerraduraPregunta();
+           //cuatro.printAutomata();
+           Automata seis= Automata.CreaAFNBasico('D');
+           //seis.printAutomata();
+           seis.CerraduraMas();
+           //seis.printAutomata();
+           cuatro.ConcatenarAutomata(seis);
+           Automata m=Automata.CreaAFNBasico('P');
+           cuatro.ConcatenarAutomata(m);
+           //cuatro.printAutomata();
+           Automata siete= Automata.CreaAFNBasico('D');
+           siete.CerraduraMas();
+           //siete.printAutomata();
+           cuatro.ConcatenarAutomata(siete);
+           //cuatro.printAutomata();
           
-         AFD m= cinco.AFNtoAFD();
-         m.printAutomata();
-          
-          System.out.println("INICIO SEGUNDA PRUEBA");
-          cuatro=Automata.AgregaATotal(cuatro, cinco);
-          cuatro.printAutomata();
-            System.out.println("FIN PRUEBA 2");
-         cuatro.printLenguaje();
-         AFD miau=cuatro.AFNtoAFD();
-         
-         miau.printAutomata();
-          
+            //System.out.println("aqui error\n");
+           Automata ocho= Automata.CreaAFNBasico('E');
+           Automata nueve= Automata.CreaAFNBasico('e');
+           ocho.UnirAutomata(nueve);
+           //ocho.printAutomata();
           
            
+           Automata diez= Automata.CreaAFNBasico('+');
+           Automata once= Automata.CreaAFNBasico('M');
+           diez.UnirAutomata(once);
+           diez.CerraduraPregunta();
+           //diez.printAutomata();
+           ocho.ConcatenarAutomata(diez);
+           //cuatro.printAutomata();
+           //ocho.printAutomata();
            
+           Automata doce= Automata.CreaAFNBasico('D');
+           doce.CerraduraMas();
+           ocho.ConcatenarAutomata(doce);
+            try {
+                System.out.println("inicial");
+                System.out.println(ocho.getEstadoInicial().getId());
+                System.out.println("Trancisiones del inicial");
+                ocho.getEstadoInicial().getTrancisiones().forEach(n->System.out.println(n.getDestino().getId()));
+            } catch (Exception e) {
+            }
+           
+           ocho.CerraduraPregunta();
+            try {
+                System.out.println(" ");
+                System.out.println("inicial");
+                System.out.println(ocho.getEstadoInicial().getId());
+                System.out.println("Trancisiones del inicial");
+                ocho.getEstadoInicial().getTrancisiones().forEach(n->System.out.println(n.getDestino().getId()));
+                System.out.println(" ");
+            } catch (Exception e) {
+            }
+           
+           //ocho.printAutomata();
+           
+           cuatro.ConcatenarAutomata(ocho);
+           cuatro.printAutomata();
+           
+       
+       
+           
+            System.out.println("Automata 3");
+            
+            Automata trece=Automata.CreaAFNBasico('L');
+            Automata catorce=Automata.CreaAFNBasico('D');
+            trece.UnirAutomata(catorce);//LlD
+            trece.CerraduraEstrella();//(LlD)*
+            Automata quince=Automata.CreaAFNBasico('L');
+            quince.ConcatenarAutomata(trece);
+            
+            quince.printAutomata();
+            
+            System.out.println("Automata 4");
+            
+            Automata veinte=Automata.CreaAFNBasico('S');
+            Automata veintiuno= Automata.CreaAFNBasico('T');
+            veinte.UnirAutomata(veintiuno);
+            veinte.CerraduraMas();
+            
+            veinte.printAutomata();
+            
+            
+            System.out.println("AUTOMATA TOTAL");
+            Automata f=Automata.AgregaATotal(new Automata(), uno);
+            f=Automata.AgregaATotal(f, cuatro);
+            f=Automata.AgregaATotal(f, quince);
+            f=Automata.AgregaATotal(f, veinte);
+            
+            f.printAutomata();
+            
+            
+            System.out.println("AFD");
+            
+            f.AFNtoAFD().printAutomata();
+            
+          
+           
+            
            
          
             
