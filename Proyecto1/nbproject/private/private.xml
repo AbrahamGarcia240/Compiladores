@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1/src/AFD.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1/src/Test.java</file>
+            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1/src/AnalizadorLexico.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1/src/Estado.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1/src/Automata.java</file>
         </group>

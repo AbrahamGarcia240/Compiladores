@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -113,7 +114,7 @@ public class Test {
             Automata trece=Automata.CreaAFNBasico('L');
             Automata catorce=Automata.CreaAFNBasico('D');
             trece.UnirAutomata(catorce);//LlD
-            trece.CerraduraEstrella();//(LlD)*
+            trece.CerraduraMas();//(LlD)*
             Automata quince=Automata.CreaAFNBasico('L');
             quince.ConcatenarAutomata(trece);
             
@@ -136,13 +137,30 @@ public class Test {
             f=Automata.AgregaATotal(f, veinte);
             
             f.printAutomata();
+      
             
             
             System.out.println("AFD");
             
-            f.AFNtoAFD().printAutomata();
+            AFD nuevo=f.AFNtoAFD();
+            nuevo.printAutomata();
             
           
+           AnalizadorLexico analizador=new AnalizadorLexico("+DDPDDeMDsDDDDSTTSST", nuevo);
+           //analizador.getToken();
+           int i=0;
+           do{
+               i=analizador.getToken();
+              if(i!=0){
+                   System.out.print("El token es:");
+                    System.out.println(i);
+                   System.out.print("El lexema es:");
+                    System.out.println(analizador.getLexema());
+               }
+               
+               
+           }while(i!=0);
+           
            
             
            

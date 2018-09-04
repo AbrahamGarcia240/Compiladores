@@ -94,6 +94,7 @@ public class Automata {
 
                 } else {
                     for (Map.Entry<Integer, ArrayList<Estado>> entry : Sn.entrySet()) {
+                        
                         if (Aux.equals(entry.getValue())) {
                             // System.out.println(entry.getKey());
                             nuevo.AgregaTracision(j, c, entry.getKey());
