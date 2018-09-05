@@ -21,6 +21,7 @@ public class Estado {
     private int id;
     private boolean esInicial;
     private boolean esFinal;
+    private int token;
    
     //aqui guardo todas las trancisiones que parten de este estado
     private ArrayList<Transicion> trancisiones;
@@ -31,11 +32,20 @@ public class Estado {
         this.esInicial = esInicial;
         this.esFinal = esFinal;
         this.trancisiones= new ArrayList<Transicion>();
+        this.token=0;
        
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getToken() {
+        return token;
+    }
+
+    public void setToken(int token) {
+        this.token = token;
     }
 
     public boolean isEsInicial() {
