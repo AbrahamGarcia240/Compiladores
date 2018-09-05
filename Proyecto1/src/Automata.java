@@ -46,6 +46,21 @@ public class Automata {
     Boolean SnEsFinal(ArrayList<Estado> Sn) {
         for (Estado e : Sn) {
             if (e.isEsFinal()) {
+                
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+    
+    Boolean SnEsFinal(ArrayList<Estado> Sn, AFD nuevo, int l) {
+        for (Estado e : Sn) {
+            if (e.isEsFinal()) {
+                System.out.print("Voy a poner en el estado ");
+                System.out.print(l);
+                System.out.print(" El token ");
+                System.out.println(e.getId());
+                nuevo.getEstado(l).setToken(e.getId());
                 return Boolean.TRUE;
             }
         }
@@ -87,8 +102,12 @@ public class Automata {
                     //System.out.println(l);
                     Sn.put(l, Aux);
                     E.add(Aux);
+                    
                     nuevo.AgregaTracision(j, c, l);
-                    if (SnEsFinal(Aux)) {
+                    
+                    if (SnEsFinal(Aux,nuevo,l)) {
+                       
+                        
                         nuevo.setEstadoFinal(l);
                     }
 
@@ -99,6 +118,7 @@ public class Automata {
                             // System.out.println(entry.getKey());
                             nuevo.AgregaTracision(j, c, entry.getKey());
                             if (SnEsFinal(Aux)) {
+                                
                                 nuevo.setEstadoFinal(entry.getKey());
                             }
                             break;

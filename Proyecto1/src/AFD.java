@@ -20,9 +20,14 @@ public class AFD {
     private ArrayList<Estado> estadoFinal;
 
     public AFD() {
+        
         Estados=new HashMap<Integer, Estado>();
         estadoInicial=0;
         estadoFinal=new ArrayList<Estado>();
+    }
+    
+    public Estado getEstado(int i ){
+       return this.Estados.get(i);
     }
     
     public int AgregaEstado(){

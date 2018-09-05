@@ -129,6 +129,8 @@ public class Test {
             
             veinte.printAutomata();
             
+           
+            
             
             System.out.println("AUTOMATA TOTAL");
             Automata f=Automata.AgregaATotal(new Automata(), uno);
@@ -146,7 +148,7 @@ public class Test {
             nuevo.printAutomata();
             
           
-           AnalizadorLexico analizador=new AnalizadorLexico("+DDPDDeMDsDDDDSTTSST", nuevo);
+           AnalizadorLexico analizador=new AnalizadorLexico("+DDPDDeMDsDDDDSTTSST+DDPDD", nuevo);
            //analizador.getToken();
            int i=0;
            do{

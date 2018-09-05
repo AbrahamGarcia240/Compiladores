@@ -60,7 +60,9 @@ public class AnalizadorLexico {
                             
                             if(t.getDestino().isEsFinal()){
                                 this.pasePorAccept=true;
-                                token=e.getId();
+                                //System.out.print("El nuevo token es:");
+                                token=t.getDestino().getToken();
+                                //System.out.println(token);
                                  pila.push(e);
 
                             }
