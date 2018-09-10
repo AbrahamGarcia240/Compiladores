@@ -43,9 +43,10 @@ public class Transicion {
     }
     
     public void printTrancision(){
-        System.out.printf("----");
-        System.out.print(this.simbolo);
-        System.out.printf("---->%d\n",this.destino.getId());
+       
+        
+        System.out.printf(" -> %d ",this.destino.getId());
+        System.out.println(this.simbolo);
     }
     
     

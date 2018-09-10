@@ -88,10 +88,12 @@ public class AFD {
         for(Map.Entry<Integer, Estado> e: this.Estados.entrySet()){  //para cada estado del automata
            
           
-                System.out.println(e.getValue().getId()); //imprime el ID del estado
-                e.getValue().getTrancisiones()         //para cada una de sus trancisiones
-                        .forEach(n->n.printTrancision()); //imprime la trancision
-           
+                
+                for(Transicion t: e.getValue().getTrancisiones()){
+                 System.out.print(e.getValue().getId());
+                
+                 t.printTrancision();
+                }
             
             
         }

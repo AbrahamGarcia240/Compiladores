@@ -148,7 +148,7 @@ public class Test {
             nuevo.printAutomata();
             
           
-           AnalizadorLexico analizador=new AnalizadorLexico("+DDPDDeMDsDDDDSTTSST+DDPDD", nuevo);
+           AnalizadorLexico analizador=new AnalizadorLexico("LALALA", nuevo);
            //analizador.getToken();
            int i=0;
            do{

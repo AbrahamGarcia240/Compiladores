@@ -56,10 +56,7 @@ public class Automata {
     Boolean SnEsFinal(ArrayList<Estado> Sn, AFD nuevo, int l) {
         for (Estado e : Sn) {
             if (e.isEsFinal()) {
-                System.out.print("Voy a poner en el estado ");
-                System.out.print(l);
-                System.out.print(" El token ");
-                System.out.println(e.getId());
+               
                 nuevo.getEstado(l).setToken(e.getId());
                 return Boolean.TRUE;
             }
@@ -521,13 +518,18 @@ public class Automata {
     }
 
     public void printAutomata() {
+        
+     
 
         for (Map.Entry<Integer, Estado> e : this.Estados.entrySet()) {  //para cada estado del automata
-
-            System.out.print(e.getValue().getId()); //imprime el ID del estado
             
-                e.getValue().getTrancisiones() //para cada una de sus trancisiones
-                    .forEach(n -> n.printTrancision()); //imprime la trancision
+             //imprime el ID del estado
+            
+             for(Transicion t: e.getValue().getTrancisiones()){
+                 System.out.print(e.getValue().getId());
+                
+                 t.printTrancision();
+             }
                 
             
             
