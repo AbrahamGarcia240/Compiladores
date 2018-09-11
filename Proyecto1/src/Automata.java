@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.*;
@@ -18,7 +19,7 @@ import sun.security.provider.VerificationProvider;
  *
  * @author abraham
  */
-public class Automata {
+public class Automata implements Serializable {
 
     /*
      El lenguaje es un arreglo dinamico de strings

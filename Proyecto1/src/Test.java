@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -164,7 +165,14 @@ public class Test {
            }while(i!=0);
            
            
-            
+            WriteReader guardar= new WriteReader();
+        try {
+            guardar.setEscribe(f, "AutomataFinal");
+            Automata fin=(Automata)guardar.getLee("AutomataFinal");
+            fin.printAutomata();
+        } catch (IOException ex) {
+            Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
+        }
            
          
             

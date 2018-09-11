@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  * @author abraham
  */
-public class Estado {
+public class Estado implements Serializable{
     
     // id es el identificador de cada estado, los booleanos nos dicen si es estado final o inicial
     private static int IdEdoAct=1;

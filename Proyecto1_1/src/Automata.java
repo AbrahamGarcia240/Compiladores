@@ -1,4 +1,5 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.*;
@@ -18,7 +19,7 @@ import sun.security.provider.VerificationProvider;
  *
  * @author abraham
  */
-public class Automata {
+public class Automata implements Serializable {
 
     /*
      El lenguaje es un arreglo dinamico de strings
@@ -33,6 +34,7 @@ public class Automata {
     private Integer estadoInicial;
     private ArrayList<Transicion> Trancisiones;
     private ArrayList<Estado> estadoFinal;
+    private static final long serialVersionUID =-8041986047977913937L;
 
     public Automata() {
 
@@ -528,30 +530,41 @@ public class Automata {
              //imprime el ID del estado
             
              for(Transicion t: e.getValue().getTrancisiones()){
-                 ImprimirAutomata.jTextArea2.append(""+e.getValue().getId());
+                 try {
+                       ImprimirAutomata.jTextArea2.append(""+e.getValue().getId());
+                 } catch (Exception ex) {
+                 }
+             
                  System.out.print(e.getValue().getId());
                 
                  t.printTrancision();
              }
         }
-        ImprimirAutomata.jTextArea2.append("Estado inicial: ");
+        try{
+            ImprimirAutomata.jTextArea2.append("Estado inicial: ");
+        }
+        catch(Exception e){
+        }
+        
         System.out.print("Estado inicial:");
         try {
             ImprimirAutomata.jTextArea2.append("" + this.getEstadoInicial().getId());
             System.out.println(this.getEstadoInicial().getId());
+            ImprimirAutomata.jTextArea2.append("\nEstado(s) final(es): ");
 
         } catch (Exception e) {
             System.out.println(e);
         }
-        ImprimirAutomata.jTextArea2.append("\nEstado(s) final(es): ");
+        
         System.out.print("Estado(s) final(es):");
         try {
             this.getEstadoFinal().forEach(n -> ImprimirAutomata.jTextArea2.append(""+n.getId()));
             this.getEstadoFinal().forEach(n -> System.out.println(n.getId()));
+             ImprimirAutomata.jTextArea2.append("\n");
         } catch (Exception e) {
             System.out.println(e);
         }
-        ImprimirAutomata.jTextArea2.append("\n");
+       
         System.out.println("\n");
     }
     public void printAutomataTotal() 
@@ -565,7 +578,7 @@ public class Automata {
                  UnirAutomatas.jTextArea1.append(""+e.getValue().getId());
                  System.out.print(e.getValue().getId());
                 
-                 t.printTrancision();
+                 t.printTrancisionTotal();
              }
         }
         
@@ -579,9 +592,10 @@ public class Automata {
         } catch (Exception e) {
             System.out.println(e);
         }
-        UnirAutomatas.jTextArea1.append("\nEstado(s) final(es): ");
+        
         System.out.print("Estado(s) final(es):");
         try {
+            UnirAutomatas.jTextArea1.append("\nEstado(s) final(es): ");
             this.getEstadoFinal().forEach(n -> UnirAutomatas.jTextArea1.append("\n"+n.getId()));
             this.getEstadoFinal().forEach(n -> System.out.println(n.getId()));
         } catch (Exception e) {

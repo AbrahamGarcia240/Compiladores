@@ -169,10 +169,8 @@ public class UnirAutomatas extends javax.swing.JFrame
             AutomatasFinales.get(0).printAutomataTotal();
         }
         catch(Exception e)
-        {
-            
-        }
-        
+        {            
+        }        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -203,13 +201,13 @@ public class UnirAutomatas extends javax.swing.JFrame
                        i=analizador.getToken();
                       if(i!=0)
                       {
-                          jTextArea1.setText("El token es: " + i + "\n");
-                          jTextArea1.setText("El lexema es: " + analizador.getLexema() + "\n");
+                          jTextArea1.append("El token es: " + i + "\n");
+                          jTextArea1.append("El lexema es: " + analizador.getLexema() + "\n");
                           
                            System.out.print("El token es:");
                             System.out.println(i);
                            System.out.print("El lexema es:");
-                            System.out.println(analizador.getLexema());
+                            System.out.println(""+analizador.getLexema());
                        }
 
 

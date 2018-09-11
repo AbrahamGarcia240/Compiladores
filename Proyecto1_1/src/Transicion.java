@@ -1,3 +1,6 @@
+
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +11,7 @@
  *
  * @author abraham
  */
-public class Transicion {
+public class Transicion implements Serializable{
     private Character simbolo;
     private Character MinSimb;
     private Character MaxSimb;
@@ -43,22 +46,34 @@ public class Transicion {
     }
     
     public void printTrancision(){
-        ImprimirAutomata.jTextArea2.append(" -> "+this.destino.getId());
-        ImprimirAutomata.jTextArea2.append(" "+this.simbolo + "\n");
+        try {
+             ImprimirAutomata.jTextArea2.append(" -> "+this.destino.getId());
+             ImprimirAutomata.jTextArea2.append(" "+this.simbolo + "\n");
+        } catch (Exception e) {
+        }
+      
         System.out.printf(" -> %d ",this.destino.getId());
         System.out.println(this.simbolo);
     }
     public void printTrancisionAFD(){
-        UnirAutomatas.jTextArea1.append(" -> "+this.destino.getId());
-        UnirAutomatas.jTextArea1.append(" "+this.simbolo + "\n");
+        try {
+            UnirAutomatas.jTextArea1.append(" -> "+this.destino.getId());
+            UnirAutomatas.jTextArea1.append(" "+this.simbolo + "\n");
+        } catch (Exception e) {
+        }
+        
         System.out.printf(" -> %d ",this.destino.getId());
         System.out.println(this.simbolo);
     }
     
     //UnirAutomatas.jTextArea1
     public void printTrancisionTotal(){
-        UnirAutomatas.jTextArea1.append(" -> "+this.destino.getId());
-        UnirAutomatas.jTextArea1.append(" "+this.simbolo + "\n");
+        try {
+            UnirAutomatas.jTextArea1.append(" -> "+this.destino.getId());
+            UnirAutomatas.jTextArea1.append(" "+this.simbolo + "\n");
+        } catch (Exception e) {
+        }
+        //
         System.out.printf(" -> %d ",this.destino.getId());
         System.out.println(this.simbolo);
     }
