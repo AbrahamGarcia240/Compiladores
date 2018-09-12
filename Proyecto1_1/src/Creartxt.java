@@ -36,10 +36,10 @@ public class Creartxt {
         BufferedWriter bw;
         if(archivo.exists()) {
             bw = new BufferedWriter(new FileWriter(archivo));
-            bw.write("El fichero de texto ya estaba creado.");
+            //bw.write("El fichero de texto ya estaba creado.");
         } else {
             bw = new BufferedWriter(new FileWriter(archivo));
-            bw.write("Acabo de crear el fichero de texto.");
+            //bw.write("Acabo de crear el fichero de texto.");
         }
         bw.close();
     }
@@ -84,6 +84,8 @@ public class Creartxt {
 
             try {
                 String data = q1[n]+" -> "+q2[n]+" [label = \""+letra[n]+"\" ];";
+                
+                System.out.println(data);
                 File file = new File("fsm.gv");
                 // Si el archivo no existe, se crea!
                 if (!file.exists()) {
@@ -92,17 +94,25 @@ public class Creartxt {
                 // flag true, indica adjuntar información al archivo.
                 fw = new FileWriter(file.getAbsoluteFile(), true);
                 bw = new BufferedWriter(fw);
-                bw.write(data);
+                PrintWriter out = new PrintWriter(bw);
+                out.write(data);
                 
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println(e);
             } finally {
                 try {
+                       
                                 //Cierra instancias de FileWriter y BufferedWriter
                     if (bw != null)
                         bw.close();
+                    else
+                        System.out.println("bw.close es null");
                     if (fw != null)
                         fw.close();
+                    else
+                        System.out.println("fw.close es null");
+                        
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -149,14 +159,14 @@ public class Creartxt {
            Logger.getLogger(Creartxt.class.getName()).log(Level.SEVERE, null, ex);
        }
         String array[]={"1"}; //aqui van los estados finales 
-        String q1[]={"0","0","1"};//
-        String q2[]={"0","1","1"};
-        String letra[]={"b","x","c"};
+        String q1[]={"0","0","1","c"};//
+        String q2[]={"0","1","1","k"};
+        String letra[]={"","l","c",""};
         crearbase("1","qi",array);//1 es el estado inicial, 
         nodos(q1,q2,letra);
-
+       /*
         nodosF();
-        dibujar();
+        dibujar();*/
     }
     
 }
