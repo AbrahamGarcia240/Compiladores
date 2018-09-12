@@ -153,6 +153,7 @@ public class ImprimirAutomata extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try
         {
+            System.out.println(ManejoDeSimbolos.automatas.toString());
             jTextArea2.setText(null);
             seleccionarSimbolo();
             opc = jList5.getSelectedIndex();
@@ -161,6 +162,7 @@ public class ImprimirAutomata extends javax.swing.JFrame
         catch(Exception e)
         {
             System.out.println(e);
+            System.out.println("SInbolo "+a);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -212,11 +214,13 @@ public class ImprimirAutomata extends javax.swing.JFrame
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        seleccionarSimbolo();
         ManejoDeSimbolos.automatas.get(a).pintaAutomata();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        seleccionarSimbolo();
         ManejoDeSimbolos.automatas.get(a).AFNtoAFD().pintaAutomata();
     }//GEN-LAST:event_jButton7ActionPerformed
 

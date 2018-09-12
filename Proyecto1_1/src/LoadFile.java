@@ -115,12 +115,15 @@ public class LoadFile extends javax.swing.JFrame {
                 
         
          if(ManejoDeSimbolos.listaSimbolos.isEmpty()){
-            ManejoDeSimbolos.listaSimbolos.addElement(1);
-            ManejoDeSimbolos.automatas.put(1, (Automata)lee.getLee(jTextField1.getText()));
+             System.out.println("is empty");
+            ManejoDeSimbolos.listaSimbolos.addElement(0);
+            ManejoDeSimbolos.automatas.put(0, (Automata)lee.getLee(jTextField1.getText()));
          }
          else{
+             System.out.println(ManejoDeSimbolos.listaSimbolos.lastElement());
              ManejoDeSimbolos.listaSimbolos.addElement((Integer)ManejoDeSimbolos.listaSimbolos.lastElement()+1);
-             ManejoDeSimbolos.automatas.put((Integer)ManejoDeSimbolos.listaSimbolos.lastElement()+1, (Automata)lee.getLee(jTextField1.getText()));
+             ManejoDeSimbolos.automatas.put((Integer)ManejoDeSimbolos.listaSimbolos.lastElement(), (Automata)lee.getLee(jTextField1.getText()));
+             System.out.println(ManejoDeSimbolos.automatas.toString());
          }
         new MenuPrincipal().setVisible(true);
         this.dispose();
