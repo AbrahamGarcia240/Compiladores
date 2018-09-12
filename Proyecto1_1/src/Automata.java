@@ -269,6 +269,7 @@ public class Automata implements Serializable {
             Estado verifcador=destino.getEstadoInicial();
             
             verifcador.setTrancision('\0', fn.getEstadoInicial());
+            System.out.println(fn.getEstadoInicial().getId());
             for(Estado e: fn.getEstadoFinal()){
                 destino.estadoFinal.add(e);
             }

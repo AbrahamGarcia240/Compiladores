@@ -216,7 +216,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         // TODO add your handling code here:
     
         AutomatasFinales.get(0).pintaAutomata();
-       
+        
         
         
         
