@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  */
 public class AnalizadorLexico {
     private String cadena;
+    private String cadenaAux;
     private AFD autom;
     private String lexema;
     private Stack<Estado> pila;
@@ -34,7 +35,18 @@ public class AnalizadorLexico {
         this.ImDone=false;
         
     }
+     public void ReturnToken(){
+        this.cadena=this.cadenaAux;
+        this.ImDone=false;
+        
+        pila.empty();
+        try {
+            pila.push(this.autom.getEstadoInicial());
+        } catch (Exception ex) {
+            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
+    }
     public int getToken(){
         if(this.ImDone){
             this.ImDone=false;
@@ -74,7 +86,7 @@ public class AnalizadorLexico {
                 else{
                     if(this.pasePorAccept){
                         this.pasePorAccept=false;
-                       
+                       this.cadenaAux=this.cadena;
                         this.cadena=this.cadena.substring(indice);
                         pila.empty();
                         pila.push(this.autom.getEstadoInicial());
@@ -84,6 +96,7 @@ public class AnalizadorLexico {
                     }
                     else{
                         System.out.println("\nLa cadena no es reconocida");
+                        this.cadenaAux=this.cadena;
                         this.cadena=this.cadena.substring(indice+1);
                         
                         pila.empty();
@@ -96,6 +109,7 @@ public class AnalizadorLexico {
                 
                // System.out.println(cadena.charAt(indice));
             }
+             this.cadenaAux=this.cadena;
             this.ImDone=true;
             return token;
             

@@ -1,9 +1,15 @@
 digraph finite_state_machine {
 rankdir=LR;
 size="8,5"
-node [shape = doublecircle]; 32;
 node [shape = doublecircle]; 37;
+node [shape = doublecircle]; 38;
+node [shape = doublecircle]; 39;
+node [shape = doublecircle]; 40;
+node [shape = doublecircle]; 41;
+node [shape = doublecircle]; 42;
+node [shape = doublecircle]; 45;
+node [shape = doublecircle]; 50;
 node [shape = point ]; qi;
 node [shape = circle];
-qi -> 29;
-32 -> 32 [ label = "D"] 32 -> 33 [ label = "E"] 32 -> 34 [ label = "e"] 33 -> 35 [ label = "+"] 33 -> 36 [ label = "-"] 33 -> 37 [ label = "D"] 34 -> 35 [ label = "+"] 34 -> 36 [ label = "-"] 34 -> 37 [ label = "D"] 35 -> 37 [ label = "D"] 36 -> 37 [ label = "D"] 37 -> 37 [ label = "D"] 29 -> 30 [ label = "D"] 30 -> 30 [ label = "D"] 30 -> 31 [ label = "."] 31 -> 32 [ label = "D"] }
+qi -> 34;
+34 -> 35 [ label = "+"] 34 -> 36 [ label = "-"] 34 -> 37 [ label = "D"] 34 -> 38 [ label = "L"] 34 -> 39 [ label = "S"] 34 -> 40 [ label = "T"] 35 -> 37 [ label = "D"] 36 -> 37 [ label = "D"] 37 -> 43 [ label = "D"] 37 -> 44 [ label = "."] 38 -> 41 [ label = "D"] 38 -> 42 [ label = "L"] 39 -> 39 [ label = "S"] 39 -> 40 [ label = "T"] 40 -> 39 [ label = "S"] 40 -> 40 [ label = "T"] 41 -> 41 [ label = "D"] 41 -> 42 [ label = "L"] 42 -> 41 [ label = "D"] 42 -> 42 [ label = "L"] 43 -> 43 [ label = "D"] 43 -> 44 [ label = "."] 44 -> 45 [ label = "D"] 45 -> 45 [ label = "D"] 45 -> 46 [ label = "E"] 45 -> 47 [ label = "e"] 46 -> 48 [ label = "+"] 46 -> 49 [ label = "-"] 46 -> 50 [ label = "D"] 47 -> 48 [ label = "+"] 47 -> 49 [ label = "-"] 47 -> 50 [ label = "D"] 48 -> 50 [ label = "D"] 49 -> 50 [ label = "D"] 50 -> 50 [ label = "D"] }

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class AnalizadorLexico {
     private String cadena;
+    private String cadenaAux;
     private AFD autom;
     private String lexema;
     private Stack<Estado> pila;
@@ -24,6 +25,7 @@ public class AnalizadorLexico {
     public AnalizadorLexico(String cadena, AFD autom) {
         this.cadena = cadena;
         this.autom = autom;
+        this.cadenaAux=cadena;
         pila=new Stack<Estado>();
         this.lexema="";
         this.pasePorAccept=false;
@@ -36,9 +38,25 @@ public class AnalizadorLexico {
         
     }
     
+    public void ReturnToken(){
+        this.cadena=this.cadenaAux;
+        this.ImDone=false;
+        
+        pila.empty();
+        try {
+            pila.push(this.autom.getEstadoInicial());
+        } catch (Exception ex) {
+            Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
     public int getToken(){
+        
+       // System.out.println("EVALUARE A "+cadena);
         if(this.ImDone){
             this.ImDone=false;
+          
             return 0;
         }
         
@@ -75,18 +93,21 @@ public class AnalizadorLexico {
                 else{
                     if(this.pasePorAccept){
                         this.pasePorAccept=false;
-                       
+                        this.cadenaAux=this.cadena;
                         this.cadena=this.cadena.substring(indice);
                         pila.empty();
                         pila.push(this.autom.getEstadoInicial());
-                        
+                        //System.out.println("Subcadena es "+this.cadenaAux);
+                        //System.out.println("Nueva cadena es "+this.cadena);
                         return token;
                         
                     }
                     else{
                         System.out.println("\nLa cadena no es reconocida");
+                        this.cadenaAux=this.cadena;
                         this.cadena=this.cadena.substring(indice+1);
-                        
+                        //System.out.println("Cadena aux es "+this.cadenaAux);
+                        //System.out.println("Nueva cadena es "+this.cadena);
                         pila.empty();
                         pila.push(this.autom.getEstadoInicial());
                         return token;
@@ -97,6 +118,9 @@ public class AnalizadorLexico {
                 
                // System.out.println(cadena.charAt(indice));
             }
+            this.cadenaAux=this.cadena;
+            // System.out.println("Cadena aux es "+this.cadenaAux);
+             //           System.out.println("Nueva cadena es "+this.cadena);
             this.ImDone=true;
             return token;
             

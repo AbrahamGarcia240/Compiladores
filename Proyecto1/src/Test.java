@@ -149,7 +149,7 @@ public class Test {
             nuevo.printAutomata();
             
           
-           AnalizadorLexico analizador=new AnalizadorLexico("LALALA", nuevo);
+           AnalizadorLexico analizador=new AnalizadorLexico("+DDSTSLALAT", nuevo);
            //analizador.getToken();
            int i=0;
            do{
@@ -174,6 +174,21 @@ public class Test {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
            
+            AnalizadorLexico an= new AnalizadorLexico("+DDDSTST+D", nuevo);
+            
+            System.out.println(an.getToken());
+             an.ReturnToken();
+            System.out.println(an.getToken());
+            System.out.println(an.getToken());
+            an.ReturnToken();
+            System.out.println(an.getToken());
+            System.out.println(an.getToken());
+              an.ReturnToken();
+            System.out.println(an.getToken());
+            System.out.println(an.getToken());
+            
+            
+             
          
             
            
