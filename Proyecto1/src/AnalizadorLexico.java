@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class AnalizadorLexico {
     private String cadena;
+    
     private String cadenaAux;
     private AFD autom;
     private String lexema;
@@ -38,9 +39,16 @@ public class AnalizadorLexico {
         
     }
     
-    public void ReturnToken(){
+    public void ReturnToken(int n){
         this.cadena=this.cadenaAux;
-        this.ImDone=false;
+        if(n!=0){
+             this.ImDone=false;
+        }
+        else{
+            this.ImDone=true;
+        }
+           
+            
         
         pila.empty();
         try {
@@ -48,6 +56,7 @@ public class AnalizadorLexico {
         } catch (Exception ex) {
             Logger.getLogger(AnalizadorLexico.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.lexema="";
     
     }
     
@@ -67,6 +76,7 @@ public class AnalizadorLexico {
                 e=pila.pop();
             for(indice=0; indice<cadena.length(); indice++){  
                 Character c=cadena.charAt(indice);
+                
                 long x=e.getTrancisiones().stream()
                         .filter(n->n.getSimbolo().equals(c))
                         .count();

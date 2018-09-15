@@ -21,9 +21,9 @@ public class Test {
 	{
             System.out.println("Automata AUB");
             
-           Automata uno=Automata.CreaAFNBasico('+');
+           Automata uno=Automata.CreaAFNBasico('M');
            //uno.printAutomata();
-           Automata dos= Automata.CreaAFNBasico('M');
+           Automata dos= Automata.CreaAFNBasico('m');
            //dos.printAutomata();
            uno.UnirAutomata(dos);
            //uno.printAutomata();
@@ -41,10 +41,10 @@ public class Test {
            
             System.out.println("Automata 2");
             
-            Automata cuatro=Automata.CreaAFNBasico('+');
+            Automata cuatro=Automata.CreaAFNBasico('M');
             
            //cuatro.printAutomata();
-           Automata cinco= Automata.CreaAFNBasico('M');
+           Automata cinco= Automata.CreaAFNBasico('m');
            //cinco.printAutomata();
            cuatro.UnirAutomata(cinco);
            //cuatro.printAutomata();
@@ -71,8 +71,8 @@ public class Test {
            //ocho.printAutomata();
           
            
-           Automata diez= Automata.CreaAFNBasico('+');
-           Automata once= Automata.CreaAFNBasico('M');
+           Automata diez= Automata.CreaAFNBasico('M');
+           Automata once= Automata.CreaAFNBasico('m');
            diez.UnirAutomata(once);
            diez.CerraduraPregunta();
            //diez.printAutomata();
@@ -138,6 +138,14 @@ public class Test {
             f=Automata.AgregaATotal(f, cuatro);
             f=Automata.AgregaATotal(f, quince);
             f=Automata.AgregaATotal(f, veinte);
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('('));//PARD
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico(')'));//PARD
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('+'));//SUMA
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('-'));//RESTA
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('/'));//DIV
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('*'));//PROD
+            f=Automata.AgregaATotal(f, Automata.CreaAFNBasico('^'));//EXP
+            
             
             f.printAutomata();
       
@@ -149,7 +157,7 @@ public class Test {
             nuevo.printAutomata();
             
           
-           AnalizadorLexico analizador=new AnalizadorLexico("+DDSTSLALAT", nuevo);
+         /*  AnalizadorLexico analizador=new AnalizadorLexico("+DD", nuevo);
            //analizador.getToken();
            int i=0;
            do{
@@ -164,32 +172,60 @@ public class Test {
                
            }while(i!=0);
            
-           
-            WriteReader guardar= new WriteReader();
+           */
+           /* WriteReader guardar= new WriteReader();
         try {
             guardar.setEscribe(f, "AutomataFinal");
             Automata fin=(Automata)guardar.getLee("AutomataFinal");
-            fin.printAutomata();
+            //fin.printAutomata();
         } catch (IOException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
-            AnalizadorLexico an= new AnalizadorLexico("+DDDSTST+D", nuevo);
+           */
+            AnalizadorLexico an= new AnalizadorLexico("((98))-35", nuevo);
             
             System.out.println(an.getToken());
-             an.ReturnToken();
+            System.out.println(an.getLexema());
+           System.out.println(an.getToken());
+            System.out.println(an.getLexema());
             System.out.println(an.getToken());
-            System.out.println(an.getToken());
-            an.ReturnToken();
-            System.out.println(an.getToken());
-            System.out.println(an.getToken());
-              an.ReturnToken();
-            System.out.println(an.getToken());
-            System.out.println(an.getToken());
-            
-            
-             
+            System.out.println(an.getLexema());
          
+            System.out.println(an.getToken());
+            System.out.println(an.getLexema());
+            System.out.println(an.getToken());
+            System.out.println(an.getLexema());
+            System.out.println(an.getToken());
+            System.out.println(an.getLexema());
+            System.out.println(an.getToken());
+            System.out.println(an.getLexema());
+            
+            /***************************************************************/
+            System.out.println("**********");
+           Token T=new Token(nuevo);
+           T.DefineToken("D", "NUM");
+            T.DefineToken("MDDPDDeDD", "NUM2");
+           T.DefineToken("^", "EXP");
+           T.DefineToken("+", "MAS");
+           T.DefineToken("-", "MENOS");
+           T.DefineToken("/", "DIV");
+           T.DefineToken("*", "PROD");
+           T.DefineToken("(", "PARI");
+           T.DefineToken(")", "PARD");
+            System.out.println("Toke den MAS "+T.Tokens.get("MAS"));
+            System.out.println("Token de NUM "+T.Tokens.get("NUM"));
+            System.out.println("Token de NUM2 "+T.Tokens.get("NUM2"));
+             System.out.println("Toke den DIV "+T.Tokens.get("DIV"));
+              System.out.println("Toke den PARI "+T.Tokens.get("PARI"));
+            
+            System.out.println("");
+            System.out.println("");
+
+           
+           AnalizadorSintactico sint=new AnalizadorSintactico("((DD)*DD-DD+(DD))-D", nuevo, T);
+          
+            System.out.println(sint.Analiza());
+            
             
            
            
