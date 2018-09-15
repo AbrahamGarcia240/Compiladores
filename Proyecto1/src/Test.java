@@ -157,7 +157,7 @@ public class Test {
             nuevo.printAutomata();
             
           
-         /*  AnalizadorLexico analizador=new AnalizadorLexico("+DD", nuevo);
+           AnalizadorLexico analizador=new AnalizadorLexico("((55)*21-89+(12))-1", nuevo);
            //analizador.getToken();
            int i=0;
            do{
@@ -172,7 +172,7 @@ public class Test {
                
            }while(i!=0);
            
-           */
+           
            /* WriteReader guardar= new WriteReader();
         try {
             guardar.setEscribe(f, "AutomataFinal");
@@ -182,7 +182,8 @@ public class Test {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }
            */
-            AnalizadorLexico an= new AnalizadorLexico("((98))-35", nuevo);
+           /*
+            AnalizadorLexico an= new AnalizadorLexico("((55)*21-89+(12))-1", nuevo);
             
             System.out.println(an.getToken());
             System.out.println(an.getLexema());
@@ -222,7 +223,7 @@ public class Test {
             System.out.println("");
 
            
-           AnalizadorSintactico sint=new AnalizadorSintactico("((DD)*DD-DD+(DD))-D", nuevo, T);
+           AnalizadorSintactico sint=new AnalizadorSintactico("(98+12)+21/2+", nuevo, T);
           
             System.out.println(sint.Analiza());
             
