@@ -34,11 +34,27 @@ public class AnalizadorSintactico {
            }
            return false;
        }
-       else if(tok==T.Tokens.get("NUM")){
+       else if(tok==T.Tokens.get("NUM") || tok==T.Tokens.get("NUM2") || tok==T.Tokens.get("NUM3")){
            //System.out.print("sali de F: ");
            //System.out.println(Lexic.getLexema());
            return true;
        }
+       
+       else if(tok==T.Tokens.get(("SEN")) || tok==T.Tokens.get("COS") || tok==T.Tokens.get("TAN") || tok==T.Tokens.get("LOG")){
+           tok=Lexic.getToken();
+           if(tok==T.Tokens.get("PARI")){
+            // System.out.println(Lexic.getLexema());
+             if(E()){
+                 tok=Lexic.getToken();
+                 if(tok==T.Tokens.get("PARD")){
+                     //.out.println(Lexic.getLexema());
+                     return true;
+                 }
+             }
+             return false;
+         }
+       }
+       
         //System.out.println("FALSO");
        return false;
     

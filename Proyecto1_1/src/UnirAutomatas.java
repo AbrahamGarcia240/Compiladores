@@ -246,7 +246,9 @@ public class UnirAutomatas extends javax.swing.JFrame
         // TODO add your handling code here:
          Token T=new Token(AutomatasFinales.get(0).AFNtoAFD());
              T.DefineToken("D", "NUM");
-           // T.DefineToken("MDDPDDeDD", "NUM2");
+           T.DefineToken("DD.D", "NUM2");
+           T.DefineToken("DD.De-D", "NUM3");
+            T.DefineToken("DD.De+D", "NUM4");
            T.DefineToken("^", "EXP");
            T.DefineToken("+", "MAS");
            T.DefineToken("-", "MENOS");
@@ -254,11 +256,22 @@ public class UnirAutomatas extends javax.swing.JFrame
            T.DefineToken("*", "PROD");
            T.DefineToken("(", "PARI");
            T.DefineToken(")", "PARD");
+           T.DefineToken("sen", "SEN");
+           T.DefineToken("cos", "COS");
+           T.DefineToken("tan", "TAN");
+           T.DefineToken("log", "LOG");
+            
             System.out.println("Toke den MAS "+T.Tokens.get("MAS"));
             System.out.println("Token de NUM "+T.Tokens.get("NUM"));
-            //System.out.println("Token de NUM2 "+T.Tokens.get("NUM2"));
-             System.out.println("Toke den DIV "+T.Tokens.get("DIV"));
-              System.out.println("Toke den PARI "+T.Tokens.get("PARI"));
+            System.out.println("Token de NUM2 "+T.Tokens.get("NUM2"));
+            System.out.println("Toke den DIV "+T.Tokens.get("DIV"));
+            System.out.println("Toke den PARI "+T.Tokens.get("PARI"));
+            System.out.println("Toke den SEN "+T.Tokens.get("SEN"));
+            System.out.println("Toke den COS "+T.Tokens.get("COS"));
+            System.out.println("Toke den TAN "+T.Tokens.get("TAN"));
+            System.out.println("Toke den LOG "+T.Tokens.get("LOG"));
+            System.out.println("Toke den NUM3 "+T.Tokens.get("NUM3"));
+            System.out.println("Toke den NUM4 "+T.Tokens.get("NUM4"));
          
          AnalizadorSintactico sint=new AnalizadorSintactico(jTextField1.getText(), AutomatasFinales.get(0).AFNtoAFD(), T);
           if(sint.Analiza()){
