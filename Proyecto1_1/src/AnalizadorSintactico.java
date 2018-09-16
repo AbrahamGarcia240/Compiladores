@@ -52,14 +52,17 @@ public class AnalizadorSintactico {
        
        else if(tok==T.Tokens.get(("SEN")) || tok==T.Tokens.get("COS") || tok==T.Tokens.get("TAN") || tok==T.Tokens.get("LOG")){
             System.out.println(Lexic.getLexema());
+            int ver=tok;
            tok=Lexic.getToken();
-           int ver=tok;
+           
            if(tok==T.Tokens.get("PARI")){
                 System.out.println(Lexic.getLexema());
             // System.out.println(Lexic.getLexema());
              if(E(v2)){
+                 System.out.println("NUGGEEET "+ver);
                  if(ver==T.Tokens.get(("SEN"))){
-                     v.setV(Math.sin(v.getV()));
+                     
+                     v.setV(Math.sin(v2.getV()));
                     
                  }
                  else if(ver==T.Tokens.get(("COS"))){
