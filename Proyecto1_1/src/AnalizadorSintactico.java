@@ -20,7 +20,7 @@ public class AnalizadorSintactico {
     
     
     private Boolean F(Flotante v){
-       Flotante v2=new Flotante(0.0);
+       Flotante v2=new Flotante(0.0,"");
        int tok;
        tok=Lexic.getToken();
         //System.out.println("token:"+tok);
@@ -45,6 +45,7 @@ public class AnalizadorSintactico {
            //System.out.println("lexema:"+l);
           
            v.setV(Double.valueOf(l));
+           v.setS(l);
            //System.out.println(v);
            System.out.println("En F: "+v.getV());
            return true;
@@ -63,16 +64,20 @@ public class AnalizadorSintactico {
                  if(ver==T.Tokens.get(("SEN"))){
                      
                      v.setV(Math.sin(v2.getV()));
+                     v.setS(v.getS()+" "+v2.getS()+" sen");
                     
                  }
                  else if(ver==T.Tokens.get(("COS"))){
                       v.setV(Math.cos(v2.getV()));
+                      v.setS(v.getS()+" "+v2.getS()+" cos");
                  }
                  else if(ver==T.Tokens.get(("TAN"))){
                      v.setV(Math.tan(v2.getV()));
+                     v.setS(v.getS()+" "+v2.getS()+" tan");
                  }
                  else if(ver==T.Tokens.get(("LOG"))){
                       v.setV(Math.log10(v2.getV()));
+                      v.setS(v.getS()+" "+v2.getS()+" log");
                  }
                  tok=Lexic.getToken();
                  if(tok==T.Tokens.get("PARD")){
@@ -93,13 +98,14 @@ public class AnalizadorSintactico {
     
     private Boolean Pp(Flotante v){
         int tok;
-        Flotante v2= new Flotante(0.0);
+        Flotante v2= new Flotante(0.0,"");
            
         tok=Lexic.getToken();
         if(tok==T.Tokens.get("EXP")){
              System.out.println(Lexic.getLexema());
             if(F(v2)){
                 v.setV(Math.pow(v.getV(), v2.getV()));
+                v.setS(v.getS()+" "+v2.getS()+" ^");
                 
                 if(Tp(v)){
                     System.out.println("En Pp: "+v.getV());
@@ -130,7 +136,7 @@ public class AnalizadorSintactico {
     
     private Boolean Tp(Flotante v){
        int tok;
-       Flotante v2= new Flotante(0.0);
+       Flotante v2= new Flotante(0.0,"");
        tok=Lexic.getToken();
        int esProd=tok;
         //System.out.println("Sali de TP:"+tok);
@@ -141,9 +147,11 @@ public class AnalizadorSintactico {
                if(esProd==T.Tokens.get("PROD")){
                    
                     v.setV(v.getV()*v2.getV());
+                    v.setS(v.getS()+" "+v2.getS()+" *");
                 }
                 else{
                    v.setV(v.getV()/v2.getV());
+                   v.setS(v.getS()+" "+v2.getS()+" /");
                    
                 }
                if(Tp(v)){
@@ -164,7 +172,7 @@ public class AnalizadorSintactico {
     
     private Boolean Ep(Flotante v){
         int tok;
-        Flotante v2=new Flotante(0.0);
+        Flotante v2=new Flotante(0.0,"");
         tok=Lexic.getToken();
         int esMas=0;
         if(tok==T.Tokens.get("MAS") || tok==T.Tokens.get("MENOS")){
@@ -174,9 +182,11 @@ public class AnalizadorSintactico {
                 if(esMas==T.Tokens.get("MAS")){
                     
                     v.setV(v.getV()+v2.getV());
+                    v.setS(v.getS()+" "+v2.getS()+" +");
                 }
                 else{
                     v.setV(v.getV()-v2.getV());
+                    v.setS(v.getS()+" "+v2.getS()+" -");
                 }
                 
                 if(Ep(v)){

@@ -10,17 +10,27 @@
  */
 public class Flotante {
     double v;
+    String s;
 
     public double getV() {
         return v;
     }
 
-    public Flotante(double v) {
+    public Flotante(double v, String s) {
         this.v = v;
+        this.s = s;
+    }
+
+    public String getS() {
+        return s;
     }
 
     public void setV(double v) {
         this.v = v;
+    }
+
+    public void setS(String s) {
+        this.s = s;
     }
     
     

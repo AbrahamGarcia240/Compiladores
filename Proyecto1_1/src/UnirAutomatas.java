@@ -40,6 +40,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,7 +143,9 @@ public class UnirAutomatas extends javax.swing.JFrame
                                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(26, 26, 26))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))))
@@ -177,14 +180,16 @@ public class UnirAutomatas extends javax.swing.JFrame
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                                 .addComponent(jButton8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton9))
                             .addComponent(jScrollPane1))
-                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addGap(0, 49, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))))
         );
@@ -306,11 +311,13 @@ public class UnirAutomatas extends javax.swing.JFrame
             System.out.println("Toke den NUM4 "+T.Tokens.get("NUM4"));
          
          AnalizadorSintactico sint=new AnalizadorSintactico(jTextField1.getText(), AutomatasFinales.get(0).AFNtoAFD(), T);
-         Flotante v=new Flotante(0.0);
+         Flotante v=new Flotante(0.0,"");
           if(sint.Analiza(v)){
               System.out.println("true");
               jLabel2.setText("Resultado: "+String.valueOf(v.getV()));
+              jLabel3.setText("Posfijo: "+v.getS());
               System.out.println(v.getV());
+              System.out.println(v.getS());
           }
           else{
               JOptionPane.showMessageDialog(null, "La cadena ingresada es incorrecta");
@@ -400,6 +407,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jList5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
