@@ -59,7 +59,7 @@ public class AnalizadorSintactico {
             // System.out.println(Lexic.getLexema());
              if(E(v2)){
                  if(ver==T.Tokens.get(("SEN"))){
-                     v.setV(Math.sin(v2.getV()));
+                     v.setV(Math.sin(v.getV()));
                     
                  }
                  else if(ver==T.Tokens.get(("COS"))){
