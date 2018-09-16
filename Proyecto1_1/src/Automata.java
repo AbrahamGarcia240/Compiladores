@@ -62,10 +62,7 @@ public class Automata implements Serializable {
     Boolean SnEsFinal(ArrayList<Estado> Sn, AFD nuevo, int l) {
         for (Estado e : Sn) {
             if (e.isEsFinal()) {
-                System.out.print("Voy a poner en el estado ");
-                System.out.print(l);
-                System.out.print(" El token ");
-                System.out.println(e.getId());
+               
                 nuevo.getEstado(l).setToken(e.getId());
                 return Boolean.TRUE;
             }
