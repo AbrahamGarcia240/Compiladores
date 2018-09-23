@@ -388,7 +388,10 @@ public class UnirAutomatas extends javax.swing.JFrame
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
           Token T=new Token(AutomatasFinales.get(0).AFNtoAFD());
-         T.DefineToken("D", "EXP");    
+         T.DefineToken("D", "EXP"); 
+         T.DefineToken("\\+", "M");
+         T.DefineToken("\\-", "m");
+         T.DefineToken("\\.", "p");
            T.DefineToken("+", "CMAS");
            T.DefineToken("*", "CEST");
            T.DefineToken("|", "OR");
@@ -400,7 +403,7 @@ public class UnirAutomatas extends javax.swing.JFrame
            AutomataContainer v=new AutomataContainer();
            if(sint.Analiza(v)){
                v.getA().pintaAutomata();
-               JOptionPane.showInputDialog(null, "listo?");
+               JOptionPane.showMessageDialog(null, "Mostrando AFD");
                v.getA().AFNtoAFD().pintaAutomata();
            }
            else{

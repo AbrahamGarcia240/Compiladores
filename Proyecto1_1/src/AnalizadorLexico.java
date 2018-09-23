@@ -32,6 +32,9 @@ public class AnalizadorLexico {
         
         this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
         this.cadena = cadena.replaceAll("[a-zA-Z]", "D");
+        
+        
+     
          
         System.out.println("Cadena real "+this.cadenaReal);
         System.out.println(this.cadenaRealAux);

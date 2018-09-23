@@ -39,12 +39,16 @@ public class AnalizadorSintacticoER {
            System.out.println("En F: "+v);
            return false;
        }
-       else if(tok==T.Tokens.get("EXP")){
+       else if(tok==T.Tokens.get("EXP")||tok==T.Tokens.get("M")||tok==T.Tokens.get("m")||tok==T.Tokens.get("p")){
            //System.out.print("sali de F: ");
            String l=Lexic.getLexema();
            System.out.println("lexema:"+l);
-           if(l.charAt(0)=='\\')
-            v.setA(Automata.CreaAFNBasico(l.charAt(1)));
+           if(tok==T.Tokens.get("M"))
+            v.setA(Automata.CreaAFNBasico('+'));
+           else if(tok==T.Tokens.get("m"))
+            v.setA(Automata.CreaAFNBasico('-'));
+           else if(tok==T.Tokens.get("p"))
+            v.setA(Automata.CreaAFNBasico('.'));
            else
             v.setA(Automata.CreaAFNBasico(l.charAt(0)));   
            v.getA().printAutomata();
@@ -146,7 +150,7 @@ public class AnalizadorSintacticoER {
           esMas=tok;
             if(T(v2)){
                v.setA( v.getA().UnirAutomata(v2.getA()));
-               v.getA().pintaAutomata();
+              // v.getA().pintaAutomata();
                 
                 if(Ep(v)){
                     System.out.println("En Ep: "+v);
