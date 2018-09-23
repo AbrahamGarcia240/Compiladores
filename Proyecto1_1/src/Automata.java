@@ -719,7 +719,7 @@ public class Automata implements Serializable {
                         text=text+e.getValue().getId()+" -> "+t.getDestino().getId()+" [ label = \"[\"] ";
                         break;
                         case 92:
-                        text=text+e.getValue().getId()+" -> "+t.getDestino().getId()+" [ label = \"\\\"] ";
+                        text=text+e.getValue().getId()+" -> "+t.getDestino().getId()+" [ label = \"\\\\\"] ";
                         break;
                         case 93:
                         text=text+e.getValue().getId()+" -> "+t.getDestino().getId()+" [ label = \"]\"] ";

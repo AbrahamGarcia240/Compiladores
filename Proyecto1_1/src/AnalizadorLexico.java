@@ -29,11 +29,14 @@ public class AnalizadorLexico {
         this.cadenaRealAux=cadena;
         this.cadenaAux=cadena.replaceAll("[0-9]", "D");
         this.cadena = cadena.replaceAll("[0-9]", "D");
+        
+        this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
+        this.cadena = cadena.replaceAll("[a-zA-Z]", "D");
          
-       /* System.out.println("Cadena real "+this.cadenaReal);
+        System.out.println("Cadena real "+this.cadenaReal);
         System.out.println(this.cadenaRealAux);
         System.out.println("Cadena prueba "+this.cadena);
-        System.out.println(this.cadenaAux);*/
+        System.out.println(this.cadenaAux);
         
         this.autom = autom;
         this.cadenaAux=cadena;
