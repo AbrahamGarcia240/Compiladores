@@ -252,11 +252,34 @@ public class UnirAutomatas extends javax.swing.JFrame
                 lxma = JOptionPane.showInputDialog("Ingresa un lexema ");
                 AnalizadorLexico analizador=new AnalizadorLexico(lxma, AutomatasFinales.get(0).AFNtoAFD());
                    //analizador.getToken();
+                     EstadoLexico E = new EstadoLexico();
                    int i=0;
                    do{
                        i=analizador.getToken();
                       if(i!=0)
                       {
+                          if(i==95){
+                            
+                              analizador.buildEstadoLexico(E);
+                                      
+                          }
+                          jTextArea1.append("El token es: " + i + "\n");
+                          jTextArea1.append("El lexema es: " + analizador.getLexema() + "\n");
+                          
+                           System.out.print("El token es:");
+                            System.out.println(i);
+                           System.out.print("El lexema es:");
+                            System.out.println(""+analizador.getLexema());
+                       }
+
+
+                   }while(i!=0);
+                   analizador.useEstadoLexico(E);
+                    do{
+                       i=analizador.getToken();
+                      if(i!=0)
+                      {
+                          
                           jTextArea1.append("El token es: " + i + "\n");
                           jTextArea1.append("El lexema es: " + analizador.getLexema() + "\n");
                           

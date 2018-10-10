@@ -3,15 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/Automata.java</file>
+            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/Token.java</file>
+            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/UnirAutomatas.java</file>
+            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/ImprimirAutomata.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/Flotante.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AFD.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/Creartxt.java</file>
-            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/Automata.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AnalizadorSintactico.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/LoadFile.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AnalizadorSintacticoER.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AutomataContainer.java</file>
-            <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/UnirAutomatas.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AndOr.java</file>
             <file>file:/home/abraham/Documentos/Compiladores/Proyecto1_1/src/AnalizadorLexico.java</file>
         </group>

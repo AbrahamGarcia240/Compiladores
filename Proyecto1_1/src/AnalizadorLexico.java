@@ -30,9 +30,10 @@ public class AnalizadorLexico {
         this.cadenaAux=cadena.replaceAll("[0-9]", "D");
         this.cadena = cadena.replaceAll("[0-9]", "D");
         
-        this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
+        //para evaluar expresiones regulares
+       /* this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
         this.cadena = cadena.replaceAll("[a-zA-Z]", "D");
-        
+        */
         
      
          
@@ -54,6 +55,27 @@ public class AnalizadorLexico {
         this.ImDone=false;
         
     }
+    
+    public void buildEstadoLexico(EstadoLexico E){
+        E.setCadenaEstadoLexico(cadena);
+        E.setCadenaEstadoLexicoAux(cadenaAux);
+        E.setCadenaEstadoLexicoReal(cadenaReal);
+        E.setCadenaEstadoLexicoRealAux(cadenaRealAux);
+        E.setEstadoLexicoImDone(ImDone);
+        E.setEstadoLexicoPasePorAccept(pasePorAccept);
+      
+    }
+    
+   public void useEstadoLexico(EstadoLexico E){
+        this.cadena=E.getCadenaEstadoLexico();
+        this.cadenaAux=E.getCadenaEstadoLexicoAux();
+        this.cadenaReal=E.getCadenaEstadoLexicoReal();
+        this.cadenaRealAux=E.getCadenaEstadoLexicoRealAux();
+        this.ImDone=E.isEstadoLexicoImDone();
+        this.pasePorAccept=E.isEstadoLexicoPasePorAccept();
+       
+   }
+    
     
     public void ReturnToken(int n){
         this.cadena=this.cadenaAux;
