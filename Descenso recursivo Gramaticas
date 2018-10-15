@@ -1,0 +1,240 @@
+//ESTE DESCENSO CREA LA LISTA DE LISTA DE LA GRAMATICA A USAR
+
+
+NODO{
+
+ private Character simbolo;
+ private Nodo derecha;
+ private Nodo abajo;
+ private Boolean terminal;
+
+ Nodo(){
+ 	terminal=false;
+ 	derecha=NULL;
+ 	abajo=NULL;
+ }
+
+ void setSimbolo(Character c){
+ 	this.simbolo=c;
+ }
+
+ Character  getSimbolo(){
+ 	return c;
+ }
+
+ void setDerecha(Nodo n){
+ 	this.derecha=n;
+ }
+
+ Nodo getDerecha(){
+ 	return derecha;
+ }
+
+ void setAbajo(Nodo n){
+ 	this.abajo=n;
+ }
+
+ Nodo getAbajo(){
+ 	return abajo;
+ }
+
+ void setTerminal(Boolean b){
+ 	this.terminal=b;
+ }
+
+ Boolean isTerminal(){
+ 	return terminal;
+ }
+
+
+void reemplazaDerecha(Nodo B){
+	this.derecha=B.getDerecha();
+}
+
+void reemplazaAbajo(Nodo B){
+	this.abajo=B.getAbajo();
+}
+
+}
+
+
+
+
+Nodo N = new Nodo();
+
+Boolean G(Nodo N){
+	if(ListaReglas(N)){
+		return true;
+	}
+	return false;
+}
+
+Boolean ListaReglas(Nodo N){
+	int t;
+	Nodo N2=new Nodo();
+	if(Regla(N)){ //obtengo al menos una regla
+		t=Lexic.getToken();
+		if(t==Tokens.puntoYComa){ //quiza obtenga mas reglas
+			if(ListaReglasP(N2)){ //SI TENGO MAS REGLAS
+				N.setAbajo(N);
+				return true;
+			}
+		}
+		
+	}
+
+	return false;
+}
+
+
+
+//REGLA YA ESTA BIEN
+Boolean Regla (Nodo N){
+	int t;
+	Nodo N2=new Nodo();
+	if(LadoIzquierdo(N)){
+		t=Lexic.getToken();
+		if(t==Tokens.Flecha){
+			if(ListaLadosDer(N2)){
+				//L.AddDerecha(N2);
+				//N.AddDerecha(N2.getAbajo());
+				//N.getAbajo().AddDerecha(N2.getAbajo());
+				N.AddDerecha(N2);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+
+Boolean LadoIzquierdo(Nodo N){
+	int t;
+	t=Lexic.getToken();
+	if(t==Tokens.Simbolo){
+		//Nodo N2= new Nodo();
+		//N2.setSimbolo(Lexic.getLexema());
+		//N.setAbajo(N2);
+		N.setSimbolo(Lexic.getLexema());
+		return true;
+	}
+	return false;
+}
+
+
+
+Boolean ListaLadosDer(Nodo N){
+	int t;
+	Nodo N2= new Nodo();
+	if(LadoDerecho(N)){
+		if(ListaLadosDerP(N2)){
+			//L.Addabajo(L2.getDerecha());
+			//N.AddDerecha(N2);
+			N.Addabajo(N2);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+Boolean LadoDerecho(Nodo N){
+	int t;
+	Nodo N2= new Nodo();
+	t=Lexic.getToken();
+	if(t==Tokens.Simbolo){
+		//N2.setSimbolo(Lexic.getLexema());
+		  N.setSimbolo(Lexic.getLexema());
+		if(LadoDerechoP(N2)){
+			N.setDerecha(N2);
+			//N.setDerecha(N2.getAbajo());
+			return true;
+		}
+	}
+	return false;
+}
+
+
+Boolean LadoDerechoP(Nodo N){
+	int t;
+	Nodo N2 = new Nodo();
+	t=Lexic.getToken();
+	if(t==Tokens.Simbolo){
+		N.setSimbolo(Lexic,getLexema());
+
+		if(LadoDerechoP(N2)){
+			N.setDerecha(N2);
+			//N.getAbajo().setDerecha(N2.getAbajo());
+			return true;
+		}
+		N2.setDerecha(NULL);
+		N2.setAbajo(NULL);
+		return false;
+	}
+	N=NULL;
+	N2=NULL;
+	Lexic.returnToken();
+	return true;
+}
+
+Boolean ListaReglasP(Nodo N){
+	int t;
+	EstadoLexico E;
+	Nodo N2=new Nodo();
+	Lexic.setEstado(E); // esta funcion me guarda en que caracter estaba durante el lexico
+	if(Regla(N)){ //obtengo una regla
+		t=Lexic.getToken();
+		if(t==Tokens.puntoYComa){
+			if(ListaReglasP(N2)){
+				L.setAbajo(N2);
+				return true;
+			}
+		}
+		return false;
+	}
+	//YA NO HABIAN MAS REGLAS
+	N=NULL;
+	Lexic.setEstado(E);
+	//L=new Lista(); //quiere decir que no se recibio una regla, por lo tanto, se inicializa la lista L apuntando a NULL
+	return true;
+}
+
+
+
+
+
+
+
+Boolean ListaLadosDerP(Nodo N){
+	int t;
+	Nodo N2 = new Nodo();
+	t=Lexic.getToken();
+	if(t==Tokens.OR){
+		if(LadoDerecho(N)){
+			if(ListaLadosDerP(N2)){
+				N.setAbajo(N2);
+				//N.setAbajo(N2.getAbajo());
+			
+				return true;
+			}
+		}
+		N.setDerecha(NULL);
+		N.setAbajo(NULL);
+		return false;
+	}
+	Lexic.returnToken();
+	N=NULL;
+	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
