@@ -28,14 +28,14 @@ public class AnalizadorSintacticoG {
 		if(LadoDerecho(N)){
 			if(ListaLadosDerP(N2)){
 				N.setAbajo(N2);
-                                 System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                                 //System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 				//N.setAbajo(N2.getAbajo());
 			
 				return true;
 			}
 		}
-		N.setDerecha(null);
-		N.setAbajo(null);
+		//N.setDerecha(null);
+		//N.setAbajo(null);
 		return false;
 	}
 	Lexic.ReturnToken(t);
@@ -56,7 +56,7 @@ public class AnalizadorSintacticoG {
                      System.out.println("Lexema punto y coma:"+Lexic.getLexema());
 			if(ListaReglasP(N2)){
 				N.setAbajo(N2);
-                                System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                                //System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 				return true;
 			}
 		}
@@ -76,17 +76,17 @@ public class AnalizadorSintacticoG {
 	t=Lexic.getToken();
 	if(t==T.Tokens.get("Simbolo") || t==T.Tokens.get("Simbolo2") || t==T.Tokens.get("Simbolo3") || t==T.Tokens.get("Simbolo4") || t==T.Tokens.get("Simbolo5") || t==T.Tokens.get("Simbolo6") || t==T.Tokens.get("Simbolo7") || t==T.Tokens.get("Simbolo8")){
 		N.setSimbolo(Lexic.getLexema().charAt(0));
-                System.out.println(N.getSimbolo());
+                //System.out.println(N.getSimbolo());
 
 		if(LadoDerechoP(N2)){
 			N.setDerecha(N2);
 			//N.getAbajo().setDerecha(N2.getAbajo());
                         
-                         System.out.println("Derecha de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                         //System.out.println("Derecha de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 			return true;
 		}
-		N2.setDerecha(null);
-		N2.setAbajo(null);
+		//N2.setDerecha(null);
+		//N2.setAbajo(null);
 		return false;
 	}
 	N=null;
@@ -103,11 +103,11 @@ public class AnalizadorSintacticoG {
 	if(t==T.Tokens.get("Simbolo") || t==T.Tokens.get("Simbolo2") || t==T.Tokens.get("Simbolo3") || t==T.Tokens.get("Simbolo4") || t==T.Tokens.get("Simbolo5") || t==T.Tokens.get("Simbolo6") || t==T.Tokens.get("Simbolo7") || t==T.Tokens.get("Simbolo8")){
 		//N2.setSimbolo(Lexic.getLexema());
 		  N.setSimbolo(Lexic.getLexema().charAt(0));
-                  System.out.println(N.getSimbolo());
+                  //System.out.println(N.getSimbolo());
                   
 		if(LadoDerechoP(N2)){
 			N.setDerecha(N2);
-                         System.out.println("Derecho de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                         //System.out.println("Derecho de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 			//N.setDerecha(N2.getAbajo());
 			return true;
 		}
@@ -123,7 +123,7 @@ public class AnalizadorSintacticoG {
 			//L.Addabajo(L2.getDerecha());
 			//N.AddDerecha(N2);
                         N.setAbajo(N2);
-                         System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                        // System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 			return true;
 		}
 	}
@@ -139,7 +139,7 @@ public class AnalizadorSintacticoG {
 		//N2.setSimbolo(Lexic.getLexema());
 		//N.setAbajo(N2);
 		N.setSimbolo(Lexic.getLexema().charAt(0));
-                System.out.println(N.getSimbolo());
+                //System.out.println(N.getSimbolo());
 		return true;
 	}
 	return false;
@@ -157,7 +157,7 @@ public class AnalizadorSintacticoG {
 				//N.AddDerecha(N2.getAbajo());
 				//N.getAbajo().AddDerecha(N2.getAbajo());
 				N.setDerecha(N2);
-                                 System.out.println("Derecha de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                                 //System.out.println("Derecha de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
 				return true;
 			}
 		}
@@ -175,8 +175,8 @@ public class AnalizadorSintacticoG {
             if(t==T.Tokens.get("PuntoYComa")){
                 System.out.println("Lexema punto y coma:"+Lexic.getLexema());
                 if(ListaReglasP(N2)){
-                    N.setAbajo(N);
-                     System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
+                    N.setAbajo(N2);
+                     //System.out.println("Abajo de "+N.getSimbolo()+" pongo a "+N2.getSimbolo());
                     return true;
                 }
             }

@@ -488,46 +488,12 @@ public class UnirAutomatas extends javax.swing.JFrame
         
         Nodo n= new Nodo();
         if(AN.G(n)){
-            System.out.println("Simbolo:" +n.getSimbolo());
-            System.out.println(n.getAbajo().getSimbolo());
-
-            Nodo a= new Nodo();
-            a=n;
+           n.printNodo();
+               
         }
         else{
             System.out.println("NEL");
-        }
-       /* while(a!=null){
-            System.out.println("Simbolo:" +n.getSimbolo());
-            a=a.getAbajo();
-        }*/
-        
-                   /*//analizador.getToken();
-                     EstadoLexico E = new EstadoLexico();
-                   int i=0;
-                   do{
-                       i=analizador.getToken();
-                      if(i!=0)
-                      {
-                          if(i==6){
-                            
-                              analizador.buildEstadoLexico(E);
-                                      
-                          }
-                          jTextArea1.append("El token es: " + i + "\n");
-                          jTextArea1.append("El lexema es: " + analizador.getLexema() + "\n");
-                          
-                           System.out.print("El token es:");
-                            System.out.println(i);
-                           System.out.print("El lexema es:");
-                            System.out.println(""+analizador.getLexema());
-                       }
-
-
-                   }while(i!=0);*/
-                   
-        
-        
+        }  
     }//GEN-LAST:event_jButton11ActionPerformed
     public  Integer seleccionarSimbolo()
     {

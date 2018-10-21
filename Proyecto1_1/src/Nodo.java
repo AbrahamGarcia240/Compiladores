@@ -9,7 +9,7 @@
  * @author abraham
  */
 public class Nodo {
-     private Character simbolo;
+    private Character simbolo;
     private Nodo derecha;
     private Nodo abajo;
     private Boolean terminal;
@@ -46,4 +46,67 @@ public class Nodo {
  Boolean isTerminal(){
  	return terminal;
  }
+ 
+ void printNodo(){
+     Nodo a=this;
+     Nodo b=a.getDerecha();
+     Nodo c=b;
+     int n=0;
+     while(a!=null){
+         
+         if(n==0){
+              System.out.print(a.getSimbolo());
+              n++;
+              while(b!=null){
+                  System.out.print("->"+b.getSimbolo());
+              
+                  b=b.getDerecha();
+                 if(b==null){
+                     if(c.getAbajo().equals('\0')){
+                       
+                         b=c.getAbajo();
+                         c=b;
+                          System.out.println("");
+                          System.out.print(" ");
+                     }
+                 }
+              }
+              System.out.println("");
+         }
+         if(a.getAbajo()!=null){
+                System.out.println("|");
+                System.out.println("v");
+                System.out.print(a.getAbajo().getSimbolo());
+                b=a.getAbajo().getDerecha();
+                c=b;
+                while(b!= null){
+                  System.out.print("->"+b.getSimbolo());
+              
+                    b=b.getDerecha();
+
+                    if(b==null){
+                        try {
+                            if(!c.getAbajo().equals('\0')){
+                               b=c.getAbajo();
+                               c=b;
+                                System.out.println("");
+                                System.out.print(" ");
+                           }    
+                        } catch (Exception e) {
+                        }
+                    }
+              }
+              System.out.println("");
+             
+         }
+        
+         a=a.getAbajo();
+         if(a!=null)
+             b=a.getDerecha();
+         
+     }
+     
+ 
+ }
+ 
 }
