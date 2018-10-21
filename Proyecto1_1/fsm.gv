@@ -1,8 +1,18 @@
 digraph finite_state_machine {
 rankdir=LR;
 size="8,5"
-node [shape = doublecircle]; 48;
+node [shape = doublecircle]; 28;
+node [shape = doublecircle]; 29;
+node [shape = doublecircle]; 30;
+node [shape = doublecircle]; 31;
+node [shape = doublecircle]; 32;
+node [shape = doublecircle]; 33;
+node [shape = doublecircle]; 34;
+node [shape = doublecircle]; 35;
+node [shape = doublecircle]; 36;
+node [shape = doublecircle]; 37;
+node [shape = doublecircle]; 38;
 node [shape = point ]; qi;
 node [shape = circle];
-qi -> 46;
-48 -> 47 [ label = "a"] 46 -> 47 [ label = "a"] 47 -> 48 [ label = "b"] }
+qi -> 27;
+27 -> 28 [ label = "D"] 27 -> 29 [ label = "+"] 27 -> 30 [ label = "-"] 27 -> 31 [ label = "*"] 27 -> 32 [ label = "/"] 27 -> 33 [ label = "#"] 27 -> 34 [ label = ";"] 27 -> 35 [ label = "("] 27 -> 36 [ label = ")"] 27 -> 37 [ label = "|"] 30 -> 38 [ label = ">"] }

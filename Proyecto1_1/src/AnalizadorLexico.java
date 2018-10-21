@@ -31,9 +31,9 @@ public class AnalizadorLexico {
         this.cadena = cadena.replaceAll("[0-9]", "D");
         
         //para evaluar expresiones regulares
-       /* this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
+        this.cadenaAux=cadena.replaceAll("[a-zA-Z]", "D");
         this.cadena = cadena.replaceAll("[a-zA-Z]", "D");
-        */
+        
         
      
          

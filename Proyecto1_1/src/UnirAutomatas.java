@@ -1,5 +1,7 @@
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +12,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     public int cont=0, a, opc;
     boolean flag;
     public Automata f;
+    public String data = "";
     public static String c= "Final", lxma ="" ;
     public static ArrayList<Automata> AutomatasFinales=new ArrayList<Automata>();
     public UnirAutomatas() 
@@ -42,6 +45,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         jButton9 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +129,13 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
         });
 
+        jButton11.setText("Evaluar gramatica");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,8 +160,9 @@ public class UnirAutomatas extends javax.swing.JFrame
                                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 14, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(0, 2, Short.MAX_VALUE))
+                            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
@@ -188,22 +200,23 @@ public class UnirAutomatas extends javax.swing.JFrame
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel2)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                        .addComponent(jLabel3))
+                                    .addComponent(jButton10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton9))
-                            .addComponent(jScrollPane1))
-                        .addGap(0, 49, Short.MAX_VALUE)
+                                .addComponent(jButton9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton11)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))))
         );
@@ -249,6 +262,7 @@ public class UnirAutomatas extends javax.swing.JFrame
             if(!AutomatasFinales.isEmpty())
             {
                 jTextArea1.setText(null);
+                
                 lxma = JOptionPane.showInputDialog("Ingresa un lexema ");
                 AnalizadorLexico analizador=new AnalizadorLexico(lxma, AutomatasFinales.get(0).AFNtoAFD());
                    //analizador.getToken();
@@ -258,7 +272,7 @@ public class UnirAutomatas extends javax.swing.JFrame
                        i=analizador.getToken();
                       if(i!=0)
                       {
-                          if(i==95){
+                          if(i==6){
                             
                               analizador.buildEstadoLexico(E);
                                       
@@ -274,7 +288,7 @@ public class UnirAutomatas extends javax.swing.JFrame
 
 
                    }while(i!=0);
-                   analizador.useEstadoLexico(E);
+                   /*analizador.useEstadoLexico(E);
                     do{
                        i=analizador.getToken();
                       if(i!=0)
@@ -290,7 +304,7 @@ public class UnirAutomatas extends javax.swing.JFrame
                        }
 
 
-                   }while(i!=0);
+                   }while(i!=0);*/
             }    
         }
         catch(Exception e)
@@ -433,6 +447,88 @@ public class UnirAutomatas extends javax.swing.JFrame
                 JOptionPane.showMessageDialog(null, "La cadena ingresada es incorrecta");
            }
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        
+         //ManejoDeSimbolos.listaSimbolos.addElement(c);
+        
+          
+        try { 
+            data = new String(Files.readAllBytes(Paths.get(JOptionPane.showInputDialog(null, "Ingresa el nombre del archivo con las reglas").concat(".txt"))));
+        } catch (IOException ex) {
+            Logger.getLogger(UnirAutomatas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+        data=data.replaceAll("(\\r|\\n)", "");
+   
+        System.out.println(data);
+        
+        Token T=new Token(AutomatasFinales.get(0).AFNtoAFD());
+         T.DefineToken("D", "Simbolo");
+         T.DefineToken("+", "Simbolo2");
+         T.DefineToken("-", "Simbolo3");
+         T.DefineToken("*", "Simbolo4");
+         T.DefineToken("/", "Simbolo5");
+         T.DefineToken("#", "Simbolo6");
+         T.DefineToken("(", "Simbolo7");
+         T.DefineToken(")", "Simbolo8");
+         T.DefineToken(";", "PuntoYComa");
+         T.DefineToken("->", "Flecha");
+         T.DefineToken("|", "OR");
+      
+         
+        
+        
+        
+       
+        
+        AnalizadorSintacticoG AN=new AnalizadorSintacticoG(data, AutomatasFinales.get(0).AFNtoAFD(), T);
+        
+        Nodo n= new Nodo();
+        if(AN.G(n)){
+            System.out.println("Simbolo:" +n.getSimbolo());
+            System.out.println(n.getAbajo().getSimbolo());
+
+            Nodo a= new Nodo();
+            a=n;
+        }
+        else{
+            System.out.println("NEL");
+        }
+       /* while(a!=null){
+            System.out.println("Simbolo:" +n.getSimbolo());
+            a=a.getAbajo();
+        }*/
+        
+                   /*//analizador.getToken();
+                     EstadoLexico E = new EstadoLexico();
+                   int i=0;
+                   do{
+                       i=analizador.getToken();
+                      if(i!=0)
+                      {
+                          if(i==6){
+                            
+                              analizador.buildEstadoLexico(E);
+                                      
+                          }
+                          jTextArea1.append("El token es: " + i + "\n");
+                          jTextArea1.append("El lexema es: " + analizador.getLexema() + "\n");
+                          
+                           System.out.print("El token es:");
+                            System.out.println(i);
+                           System.out.print("El lexema es:");
+                            System.out.println(""+analizador.getLexema());
+                       }
+
+
+                   }while(i!=0);*/
+                   
+        
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
     public  Integer seleccionarSimbolo()
     {
         
@@ -461,6 +557,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
