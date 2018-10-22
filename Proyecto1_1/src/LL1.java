@@ -20,10 +20,60 @@ public class LL1 {
     }
     
     
-    public ArrayList<Character> First(ArrayList<Nodo> L)
+    public ArrayList<Character> First(ArrayList<Character> ListaSimbolos)
     {
-        ArrayList<Character> C = new ArrayList<Character>();
-        
+        ArrayList<Character> Respuesta = new ArrayList<Character>();
+//        BUSCO SI EL PRIMER CARACTER DEL FIRST ES TERMINAL
+            Nodo A = new Nodo();
+            Nodo B = new Nodo();
+            Nodo C = new Nodo();
+           A=n;
+           B=A.getDerecha();
+           C=B;
+           
+           while(A!=null){
+               //System.out.println(A.getSimbolo());
+               
+               while(B!=null){
+                   //System.out.println(B.getSimbolo());
+                   if(ListaSimbolos.get(0).equals(B.getSimbolo())){ //valido que sea alpha 1
+                       if(B.isTerminal() || B.getSimbolo().equals('#')){
+                           Respuesta.add(B.getSimbolo());
+                           return Respuesta;
+                       }
+                   }
+                   
+                   try {
+                       B=B.getDerecha();
+                       if(B==null){
+                           if(C.getAbajo()!=null){
+                               B=C.getAbajo();
+                               C=B;
+                               System.out.println(" ");
+                           }
+                       }
+                       
+                   } catch (Exception e) {
+                   }
+               }
+               
+               
+               
+               A=A.getAbajo();
+               try {
+                    B=A.getDerecha();
+                    C=B;
+               } catch (Exception e) {
+                   
+               }
+              
+               
+           }
+           
+            
+            
+//        FIN DE LA BUSQUEDA
+        return Respuesta;
     }    
     
 }

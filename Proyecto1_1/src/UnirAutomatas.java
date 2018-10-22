@@ -519,9 +519,12 @@ public class UnirAutomatas extends javax.swing.JFrame
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
         
-        System.out.println(jTextField1.getText());
-        
-        
+        ArrayList<Character> ListaSimbolos = new ArrayList<Character>();
+        for(char x: jTextField1.getText().toCharArray()){
+            ListaSimbolos.add(x);
+        }
+        LL1 miau = new LL1(n);
+        miau.First(ListaSimbolos).forEach(n->System.out.println(n) );
         
         
     }//GEN-LAST:event_jButton12ActionPerformed
