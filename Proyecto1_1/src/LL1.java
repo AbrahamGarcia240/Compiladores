@@ -97,7 +97,7 @@ public class LL1 {
             
             
 //        FIN DE LA BUSQUEDA
-            
+//          SOLO UN SIMBOLO
          for (ArrayList<Character> temp : Betas) {
 			//temp.forEach(n->System.out.println(n) );
                        // System.out.println(" ");
@@ -105,6 +105,28 @@ public class LL1 {
                         if(temp.size()>0)
                             Aux.addAll(First(temp));
 		} 
+
+         
+//         FIN DE SOLO UN SIMBOLO
+
+        if(Aux.size()==1)
+            return Aux;
+        if(Aux.contains('#') && ListaSimbolos.size()>1){
+            Aux.removeIf(x->x.equals('#'));
+            
+            ArrayList<Character> Alterno = new ArrayList<Character> ();
+            int miau=0;
+            for(Character c: ListaSimbolos){
+                
+                if(miau!=0)
+                    Alterno.add(c);
+                miau++;
+            }
+            
+            Aux.addAll(First(Alterno));
+           
+            
+        }
 
         return Aux;
     }    
