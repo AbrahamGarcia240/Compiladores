@@ -170,8 +170,10 @@ public class LL1 {
                                             Ws.get(Ws.size()-1).add(D.getSimbolo());
                                             D=D.getDerecha();
                                         }
+                                       
                                         //AGREGAR
-                                     }       
+                                     }   
+                                     
                                  } catch (Exception e) {
                                      if(!Caracter.equals(A.getSimbolo())){
                                            Respuesta.addAll(Follow(A.getSimbolo()));
@@ -238,11 +240,16 @@ public class LL1 {
 //                System.out.println("Voy a hacer el follow de la "+cn);
 //           }
 //        }
+      
         int indice=0;
         for (ArrayList<Character> temp : Ws) {
 //			temp.forEach(n->System.out.print(n) );
 //                        System.out.println("  ");
+
+                        
                         if(!Aux2.get(indice).equals(Caracter)){
+                            System.out.println(" voy a haver el First de" +temp);
+                            temp.remove(1);
                             Aux.addAll(First(temp));
                             Respuesta.addAll(Aux);
                             if(Aux.contains('#')){
@@ -260,7 +267,12 @@ public class LL1 {
 //      
 //        for(Character cc: Aux2)
 //            System.out.print(cc+" ");
-        return Respuesta;
+    ArrayList<Character> Respuesta2 = new ArrayList<Character>();
+    for(Character f: Respuesta){
+        if(!Respuesta2.contains(f))
+            Respuesta2.add(f);
+    }
+        return Respuesta2;
     }
     
     
