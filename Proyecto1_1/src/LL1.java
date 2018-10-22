@@ -135,7 +135,8 @@ public class LL1 {
     {
         ArrayList<Character> Respuesta = new ArrayList<Character>();
         ArrayList<Character> Aux = new ArrayList<Character>();
-       
+       ArrayList<ArrayList<Character>> Ws = new ArrayList<ArrayList<Character>>();
+      ArrayList<Character> Aux2 = new ArrayList<Character>();
       
         
         if(Caracter.equals('E')){
@@ -148,11 +149,11 @@ public class LL1 {
         A=n;
         B=A.getDerecha();
         C=B;
-        
+    
 //        INICIO DE BUSQUEDA
         while(A!=null){
                //System.out.println(A.getSimbolo());
-              
+            
                while(B!=null){
                    //System.out.println(B.getSimbolo());
                     try {
@@ -160,13 +161,27 @@ public class LL1 {
                             //System.out.println(B.getSimbolo()+" es igual a  "+Caracter);
                              if(!Aux.contains(A.getSimbolo())){
                                  try {
-                                     if(B.getDerecha().getSimbolo().equals('E') || B.getDerecha().getSimbolo().equals('e') || B.getDerecha().getSimbolo().equals('T') || B.getDerecha().getSimbolo().equals('t') || B.getDerecha().getSimbolo().equals('F')  )
-                                        System.out.println("nel");
-                              
-                                     
+                                     if(B.getDerecha().getSimbolo().equals('E') || B.getDerecha().getSimbolo().equals(')')  || B.getDerecha().getSimbolo().equals('(') || B.getDerecha().getSimbolo().equals('e') || B.getDerecha().getSimbolo().equals('T') || B.getDerecha().getSimbolo().equals('t') || B.getDerecha().getSimbolo().equals('F')  ){
+                                        Nodo D=new Nodo();
+                                        D=B.getDerecha();
+                                        Aux2.add(A.getSimbolo());
+                                        Ws.add( new ArrayList<Character>());
+                                        while(D!=null){
+                                            Ws.get(Ws.size()-1).add(D.getSimbolo());
+                                            D=D.getDerecha();
+                                        }
+                                        //AGREGAR
+                                     }       
                                  } catch (Exception e) {
-                                     System.out.println("Soy "+B.getSimbolo()+" mi derecha es "+B.getDerecha().getSimbolo());
-                                     Aux.add(A.getSimbolo());
+                                     if(!Caracter.equals(A.getSimbolo())){
+                                           Respuesta.addAll(Follow(A.getSimbolo()));
+                                            System.out.println("Voy a hacer el follow de la "+A.getSimbolo());
+                                     }
+                                    
+//                                     Aux.add(A.getSimbolo());
+//                                     System.out.println("entre al catch");
+//                                     System.out.println(A.getSimbolo());
+//                                     System.out.println(Aux.size());
                                  }
                                      
                              }
@@ -177,7 +192,11 @@ public class LL1 {
                            //Respuesta.add(B.getSimbolo());
                            
                        }
+                        else{
+                            Aux.remove(Aux.size()-1);
+                        }
                    } catch (Exception e) {
+                       // System.out.println("m");
                    }
                    try {
                        B=B.getDerecha();
@@ -185,12 +204,14 @@ public class LL1 {
                            if(C.getAbajo()!=null){
                                B=C.getAbajo();
                                C=B;
+                               
                               
                                
                            }
                        }
                        
                    } catch (Exception e) {
+                       //System.out.println("foal");
                    }
                }
                
@@ -201,27 +222,45 @@ public class LL1 {
                     B=A.getDerecha();
                     C=B;
                } catch (Exception e) {
-                   
+                   //System.out.println("x");
                }
               
                
            }
 //        FIN DE BUSQUEDA
         
-        return Aux;
-//        
-//        for(Character cn: Aux){
-//            if(!cn.equals(Caracter))
-//                Respuesta.addAll(Follow(cn));
-//        }
-//        
-//        for(Character cn: Aux){
-//            if(cn.equals(Caracter)){
-//                Aux=First(Aux)
-//            }
-//        }
-//        
         
+        
+//        for(Character cn: Aux){
+//            System.out.println(cn);
+//           if(!cn.equals(Caracter)){
+//                Respuesta.addAll(Follow(cn));
+//                System.out.println("Voy a hacer el follow de la "+cn);
+//           }
+//        }
+        int indice=0;
+        for (ArrayList<Character> temp : Ws) {
+//			temp.forEach(n->System.out.print(n) );
+//                        System.out.println("  ");
+                        if(!Aux2.get(indice).equals(Caracter)){
+                            Aux.addAll(First(temp));
+                            Respuesta.addAll(Aux);
+                            if(Aux.contains('#')){
+                                 Respuesta.removeIf(x->x.equals('#'));
+                                 Respuesta.addAll(Follow(Aux2.get(indice)));
+
+                            }
+                        }
+                        
+                        
+                        indice++;
+		} 
+//        System.out.println(" ");
+//        System.out.println("EL TAMAÑO ES: "+Ws.size());
+//      
+//        for(Character cc: Aux2)
+//            System.out.print(cc+" ");
+        return Respuesta;
     }
     
     

@@ -16,8 +16,7 @@ public class Nodo {
 
     public Nodo() {
         terminal = false;
-        derecha = null;
-        abajo = null;
+       
         
     }
 

@@ -39,7 +39,7 @@ public class AnalizadorSintacticoG {
 		return false;
 	}
 	Lexic.ReturnToken(t);
-	N=null;
+//	N=null;
 	return true;
 }
 
@@ -63,7 +63,7 @@ public class AnalizadorSintacticoG {
 		return false;
 	}
 	//YA NO HABIAN MAS REGLAS
-	N=null;
+	//N=null;
         Lexic.useEstadoLexico(E);
 	//L=new Lista(); //quiere decir que no se recibio una regla, por lo tanto, se inicializa la lista L apuntando a NULL
 	return true;
@@ -93,8 +93,8 @@ public class AnalizadorSintacticoG {
 		//N2.setAbajo(null);
 		return false;
 	}
-	N=null;
-	N2=null;
+//	N=null;
+//	N2=null;
         Lexic.ReturnToken(t);
 	return true;
 }
