@@ -23,6 +23,11 @@ public class LL1 {
     public ArrayList<Character> First(ArrayList<Character> ListaSimbolos)
     {
         ArrayList<Character> Respuesta = new ArrayList<Character>();
+        ArrayList<Character> Aux = new ArrayList<Character>();
+        
+        ArrayList<ArrayList<Character>> Betas = new ArrayList<ArrayList<Character>>();
+       
+        
 //        BUSCO SI EL PRIMER CARACTER DEL FIRST ES TERMINAL
             Nodo A = new Nodo();
             Nodo B = new Nodo();
@@ -31,16 +36,34 @@ public class LL1 {
            B=A.getDerecha();
            C=B;
            
+           Betas.add( new ArrayList<Character>());
+           
            while(A!=null){
                //System.out.println(A.getSimbolo());
                
                while(B!=null){
                    //System.out.println(B.getSimbolo());
-                   if(ListaSimbolos.get(0).equals(B.getSimbolo())){ //valido que sea alpha 1
-                       if(B.isTerminal() || B.getSimbolo().equals('#')){
-                           Respuesta.add(B.getSimbolo());
-                           return Respuesta;
+//                   CREO LISTA DE LADOS DERECHOS
+                      try {
+                        if(ListaSimbolos.get(0).equals(A.getSimbolo())){
+                           
+                           Betas.get(Betas.size()-1).add(B.getSimbolo());
+                           
+                           //Respuesta.add(B.getSimbolo());
+                           
                        }
+                   } catch (Exception e) {
+                   }
+
+//                    FIN DE CREACION DE LISTA DE LADOS DERECHOS
+                   try {
+                        if(ListaSimbolos.get(0).equals(B.getSimbolo())){ //valido que sea alpha 1
+                            if(B.isTerminal() || B.getSimbolo().equals('#')){
+                                Respuesta.add(B.getSimbolo());
+                                return Respuesta;
+                            }
+                        }
+                   } catch (Exception e) {
                    }
                    
                    try {
@@ -49,6 +72,7 @@ public class LL1 {
                            if(C.getAbajo()!=null){
                                B=C.getAbajo();
                                C=B;
+                               Betas.add( new ArrayList<Character>());
                                System.out.println(" ");
                            }
                        }
@@ -73,7 +97,16 @@ public class LL1 {
             
             
 //        FIN DE LA BUSQUEDA
-        return Respuesta;
+            
+         for (ArrayList<Character> temp : Betas) {
+			//temp.forEach(n->System.out.println(n) );
+                       // System.out.println(" ");
+                        //System.out.println(temp.size());
+                        if(temp.size()>0)
+                            Aux.addAll(First(temp));
+		} 
+
+        return Aux;
     }    
     
 }
