@@ -77,6 +77,10 @@ public class AnalizadorSintacticoG {
 	if(t==T.Tokens.get("Simbolo") || t==T.Tokens.get("Simbolo2") || t==T.Tokens.get("Simbolo3") || t==T.Tokens.get("Simbolo4") || t==T.Tokens.get("Simbolo5") || t==T.Tokens.get("Simbolo6") || t==T.Tokens.get("Simbolo7") || t==T.Tokens.get("Simbolo8")){
 		N.setSimbolo(Lexic.getLexema().charAt(0));
                 //System.out.println(N.getSimbolo());
+                if(N.getSimbolo().equals('+') || N.getSimbolo().equals('-') || N.getSimbolo().equals('*') || N.getSimbolo().equals('/') || N.getSimbolo().equals('(') || N.getSimbolo().equals(')') || N.getSimbolo().equals('n') ){
+                      N.setTerminal(true);
+                      System.out.println("El simbolo "+N.getSimbolo()+" es terminal");
+                  }
 
 		if(LadoDerechoP(N2)){
 			N.setDerecha(N2);
@@ -103,6 +107,10 @@ public class AnalizadorSintacticoG {
 	if(t==T.Tokens.get("Simbolo") || t==T.Tokens.get("Simbolo2") || t==T.Tokens.get("Simbolo3") || t==T.Tokens.get("Simbolo4") || t==T.Tokens.get("Simbolo5") || t==T.Tokens.get("Simbolo6") || t==T.Tokens.get("Simbolo7") || t==T.Tokens.get("Simbolo8")){
 		//N2.setSimbolo(Lexic.getLexema());
 		  N.setSimbolo(Lexic.getLexema().charAt(0));
+                  if(N.getSimbolo().equals('+') || N.getSimbolo().equals('-') || N.getSimbolo().equals('*') || N.getSimbolo().equals('/') || N.getSimbolo().equals('(') || N.getSimbolo().equals(')') || N.getSimbolo().equals('n') ){
+                      N.setTerminal(true);
+                      System.out.println("El simbolo "+N.getSimbolo()+" es terminal");
+                  }
                   //System.out.println(N.getSimbolo());
                   
 		if(LadoDerechoP(N2)){

@@ -14,8 +14,16 @@ public class Nodo {
     private Nodo abajo;
     private Boolean terminal;
 
+    public Nodo() {
+        terminal = false;
+        derecha = null;
+        abajo = null;
+        
+    }
+
+     
     
-     void setSimbolo(Character c){
+   void setSimbolo(Character c){
  	this.simbolo=c;
  }
 
@@ -58,7 +66,11 @@ public class Nodo {
               System.out.print(a.getSimbolo());
               n++;
               while(b!=null){
-                  System.out.print("->"+b.getSimbolo());
+                  if(b.isTerminal()){
+                      System.out.print("->"+b.getSimbolo()+" TERMINAL ");
+                  }
+                  else
+                    System.out.print("->"+b.getSimbolo());
               
                   b=b.getDerecha();
                  if(b==null){
@@ -80,7 +92,11 @@ public class Nodo {
                 b=a.getAbajo().getDerecha();
                 c=b;
                 while(b!= null){
-                  System.out.print("->"+b.getSimbolo());
+                 if(b.isTerminal()){
+                      System.out.print("->"+b.getSimbolo()+" TERMINAL ");
+                  }
+                  else
+                    System.out.print("->"+b.getSimbolo());
               
                     b=b.getDerecha();
 
