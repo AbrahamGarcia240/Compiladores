@@ -147,6 +147,11 @@ public class UnirAutomatas extends javax.swing.JFrame
         });
 
         jButton13.setText("Follow");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -528,6 +533,16 @@ public class UnirAutomatas extends javax.swing.JFrame
         
         
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Character> ListaSimbolos = new ArrayList<Character>();
+        for(char x: jTextField1.getText().toCharArray()){
+            ListaSimbolos.add(x);
+        }
+        LL1 miau = new LL1(n);
+        miau.Follow(ListaSimbolos.get(0)).forEach(n->System.out.println(n) );
+    }//GEN-LAST:event_jButton13ActionPerformed
     public  Integer seleccionarSimbolo()
     {
         
