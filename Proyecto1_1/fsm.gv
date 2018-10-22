@@ -1,18 +1,18 @@
 digraph finite_state_machine {
 rankdir=LR;
 size="8,5"
-node [shape = doublecircle]; 2;
-node [shape = doublecircle]; 3;
-node [shape = doublecircle]; 4;
-node [shape = doublecircle]; 5;
-node [shape = doublecircle]; 6;
-node [shape = doublecircle]; 7;
-node [shape = doublecircle]; 8;
-node [shape = doublecircle]; 9;
-node [shape = doublecircle]; 10;
-node [shape = doublecircle]; 11;
-node [shape = doublecircle]; 12;
+node [shape = doublecircle]; 26;
+node [shape = doublecircle]; 27;
+node [shape = doublecircle]; 28;
+node [shape = doublecircle]; 29;
+node [shape = doublecircle]; 30;
+node [shape = doublecircle]; 31;
+node [shape = doublecircle]; 32;
+node [shape = doublecircle]; 33;
+node [shape = doublecircle]; 34;
+node [shape = doublecircle]; 35;
+node [shape = doublecircle]; 36;
 node [shape = point ]; qi;
 node [shape = circle];
-qi -> 1;
-1 -> 2 [ label = "D"] 1 -> 3 [ label = "+"] 1 -> 4 [ label = "-"] 1 -> 5 [ label = "*"] 1 -> 6 [ label = "/"] 1 -> 7 [ label = "#"] 1 -> 8 [ label = ";"] 1 -> 9 [ label = "("] 1 -> 10 [ label = ")"] 1 -> 11 [ label = "|"] 4 -> 12 [ label = ">"] }
+qi -> 25;
+25 -> 26 [ label = "D"] 25 -> 27 [ label = "+"] 25 -> 28 [ label = "-"] 25 -> 29 [ label = "*"] 25 -> 30 [ label = "/"] 25 -> 31 [ label = "#"] 25 -> 32 [ label = ";"] 25 -> 33 [ label = "("] 25 -> 34 [ label = ")"] 25 -> 35 [ label = "|"] 28 -> 36 [ label = ">"] }

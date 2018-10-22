@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -49,6 +52,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,6 +157,13 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
         });
 
+        jButton14.setText("Tabla");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,25 +176,24 @@ public class UnirAutomatas extends javax.swing.JFrame
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton14))
                             .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 2, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField1)
+                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
@@ -232,12 +242,13 @@ public class UnirAutomatas extends javax.swing.JFrame
                                 .addComponent(jButton8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton11)
+                                .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jButton12)
-                                    .addComponent(jButton13))
+                                    .addComponent(jButton13)
+                                    .addComponent(jButton14))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -500,7 +511,7 @@ public class UnirAutomatas extends javax.swing.JFrame
          T.DefineToken("(", "Simbolo7");
          T.DefineToken(")", "Simbolo8");
          T.DefineToken(";", "PuntoYComa");
-         T.DefineToken("->", "Flecha");
+         T.DefineToken(">", "Flecha");
          T.DefineToken("|", "OR");
       
          
@@ -543,6 +554,102 @@ public class UnirAutomatas extends javax.swing.JFrame
         LL1 miau = new LL1(n);
         miau.Follow(ListaSimbolos.get(0)).forEach(n->System.out.println(n) );
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        
+        ArrayList<Character> X = new ArrayList<Character>();
+        ArrayList<Character> Y = new ArrayList<Character>();
+        
+        Y.add('$');
+        X.add('$');
+        
+        for(Character c: data.toCharArray()){
+            if(!Y.contains(c)){
+                if(!(c.equals('|') || c.equals(';') || c.equals('>') || c.equals('#'))){
+                    Y.add(c);
+                }
+            }    
+            if(!X.contains(c)){
+                if(!(c.equals('|') || c.equals(';') || c.equals('>') || c.equals('#'))){
+                    if(!(c.equals('E') || c.equals('e') || c.equals('F') || c.equals('t') || c.equals('T') || c.equals('>'))){
+                        X.add(c);
+                     }    
+                }
+            }
+        }
+        
+        
+//        for(Character c: Y){
+//            System.out.print(c+" ");
+//        }
+//        System.out.println(" ");
+//        for(Character c: X){
+//            System.out.print(c+" ");
+//        }
+        
+        HashMap<String,String> Tabla = new HashMap<String, String>();
+        
+//        CREO LA ESTRUCTURA DE LA TABLA
+        
+        for(Character c: Y){
+            for(Character cc: X){
+                if(c.equals(cc)){
+                    if(c.equals('$')){
+                        Tabla.put(String.valueOf(c).concat(String.valueOf(cc)),"ACEPTAR");
+                    }
+                    else
+                        Tabla.put(String.valueOf(c).concat(String.valueOf(cc)),"POP");
+                }
+                else
+                    Tabla.put(String.valueOf(c).concat(String.valueOf(cc)),"");
+            }
+        
+        }
+        
+//        FIN DE LA ESTRUCTURA
+    
+//       for(Map.Entry<String,String> entry: Tabla.entrySet()){
+//           System.out.println(entry.getKey()+" "+ entry.getValue());
+//       }
+//        OBTENGO REGLAS
+    ArrayList<String> Reglas = new ArrayList<String>();
+    ArrayList<String> Izq = new ArrayList<String>();
+
+    
+    StringTokenizer babasonicos = new StringTokenizer(data,";>");
+     String aux3 = new String();
+    while(babasonicos.hasMoreTokens()){
+        String aux = babasonicos.nextToken();
+       
+        if(aux.length()==1){
+            if(!aux.contains("#")){
+                aux3=aux;
+                System.out.println(aux3);
+            }
+        }
+        else{
+            StringTokenizer kaboom = new StringTokenizer(aux,"|");
+            while(kaboom.hasMoreTokens()){
+                String aux2= kaboom.nextToken();
+                Izq.add(aux3);
+                Reglas.add(aux2);
+            }
+        
+        }
+
+    }
+    
+    for(String s: Reglas)
+            System.out.print(s+" ");
+    System.out.println("");
+    for(String s: Izq)
+            System.out.print(s+" ");
+    
+    
+        
+        
+    }//GEN-LAST:event_jButton14ActionPerformed
     public  Integer seleccionarSimbolo()
     {
         
@@ -574,6 +681,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

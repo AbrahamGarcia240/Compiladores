@@ -177,7 +177,7 @@ public class LL1 {
                                  } catch (Exception e) {
                                      if(!Caracter.equals(A.getSimbolo())){
                                            Respuesta.addAll(Follow(A.getSimbolo()));
-                                            System.out.println("Voy a hacer el follow de la "+A.getSimbolo());
+                                            //System.out.println("Voy a hacer el follow de la "+A.getSimbolo());
                                      }
                                     
 //                                     Aux.add(A.getSimbolo());
@@ -248,7 +248,7 @@ public class LL1 {
 
                         
                         if(!Aux2.get(indice).equals(Caracter)){
-                            System.out.println(" voy a haver el First de" +temp);
+                           // System.out.println(" voy a haver el First de" +temp);
                             temp.remove(1);
                             Aux.addAll(First(temp));
                             Respuesta.addAll(Aux);
