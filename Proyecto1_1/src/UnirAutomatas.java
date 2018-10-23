@@ -5,9 +5,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
 public class UnirAutomatas extends javax.swing.JFrame 
@@ -19,6 +21,9 @@ public class UnirAutomatas extends javax.swing.JFrame
     public String data = "";
     public static String c= "Final", lxma ="" ;
     public static ArrayList<Automata> AutomatasFinales=new ArrayList<Automata>();
+    public  HashMap<String,String> Tabla = new HashMap<String, String>();
+    public  ArrayList<String> Reglas = new ArrayList<String>();
+    public ArrayList<String> Izq = new ArrayList<String>();
     public UnirAutomatas() 
     {
         super("Unir autómatas");
@@ -53,6 +58,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +170,13 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
         });
 
+        jButton15.setText("Evaluar cadena con LL1");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,8 +205,9 @@ public class UnirAutomatas extends javax.swing.JFrame
                             .addComponent(jTextField1)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
@@ -249,10 +263,12 @@ public class UnirAutomatas extends javax.swing.JFrame
                                     .addComponent(jButton12)
                                     .addComponent(jButton13)
                                     .addComponent(jButton14))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton15)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))))
         );
@@ -588,7 +604,7 @@ public class UnirAutomatas extends javax.swing.JFrame
 //            System.out.print(c+" ");
 //        }
         
-        HashMap<String,String> Tabla = new HashMap<String, String>();
+       
         
 //        CREO LA ESTRUCTURA DE LA TABLA
         
@@ -613,8 +629,7 @@ public class UnirAutomatas extends javax.swing.JFrame
 //           System.out.println(entry.getKey()+" "+ entry.getValue());
 //       }
 //        OBTENGO REGLAS
-    ArrayList<String> Reglas = new ArrayList<String>();
-    ArrayList<String> Izq = new ArrayList<String>();
+   
 
     
     StringTokenizer babasonicos = new StringTokenizer(data,";>");
@@ -658,6 +673,14 @@ public class UnirAutomatas extends javax.swing.JFrame
             
             Tabla.replace( Izq.get(i).concat(ch.toString()), regla.concat(","+(i+1)));
             System.out.println("FIRST DE "+m+" es "+ch);
+            if(ch.equals('#')){
+                /////////////////////////////////////// CODIGO QUE FALTA!
+                for(Character rep: l.Follow(Izq.get(i).charAt(0))){
+                     Tabla.replace( Izq.get(i).concat(rep.toString()), regla.concat(","+(i+1)));
+                }
+                
+                
+            }
             System.out.println("["+Izq.get(i).concat(ch.toString())+","+regla+"]");
         }
         i++;
@@ -668,8 +691,104 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
     
         
+    JOptionPane.showMessageDialog(null, "Tabla LL1 generada correctamente");
         
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        // TODO add your handling code here:
+        String cadena= new String();
+        String accion = new String();
+        cadena=JOptionPane.showInputDialog(null);
+        cadena=cadena.replaceAll("[0-9]", "n");
+        ArrayList<Character> cad= new ArrayList<Character>();
+        int bandera=0;
+        for(Character x: cadena.toCharArray()){
+            if(x.equals('n')){
+                if(bandera==0){
+                    cad.add(x);
+                    //System.out.println(x.toString());
+                    bandera++;
+                }
+                
+            }
+            else{
+                bandera=0;
+                cad.add(x);
+                //System.out.println(x.toString());
+            }
+        }
+        cad.add('$');
+        cadena=cad.stream().map(Object::toString)
+                        .collect(Collectors.joining(""));
+        //System.out.println(cadena);
+        Stack<Character> Pila = new Stack<Character>();
+        Pila.push('$');
+        Pila.push('E');
+        //String llave=Pila.lastElement().toString().concat(String.valueOf(cadena.charAt(0)));
+        //System.out.println(Tabla.get(llave));
+         String llave=Pila.lastElement().toString().concat(String.valueOf(cadena.charAt(0)));
+         String accions=Tabla.get(llave);
+         
+        // RECORRIDO EN LA TABLA
+        while(!Pila.isEmpty()){
+            
+            System.out.println(Pila.toString()+"            "+cadena+"          "+accions);
+            if(Tabla.get(llave).equals("POP")){
+                Pila.pop();
+                cadena=cadena.substring(1);
+                llave=Pila.lastElement().toString().concat(String.valueOf(cadena.charAt(Integer.valueOf(0))));
+                        
+                 accions=Tabla.get(llave);
+                
+            }
+            else if(Tabla.get(llave).equals("ACEPTAR")){
+                JOptionPane.showMessageDialog(null, "Cadena válida");
+                break;
+            }
+            else if(Tabla.get(llave).equals("")){
+                JOptionPane.showMessageDialog(null, "Cadena  NO válida");
+                break;
+            }
+            
+            else{
+                Pila.pop();
+                int numero=0;
+                // CODIGO SI SE DEBE EJECUTAR UNA ACCION
+                StringTokenizer kaboom = new StringTokenizer(accions, ",");
+                while(kaboom.hasMoreTokens()){
+                    String j=kaboom.nextToken();
+                    if(numero==0){
+                        
+                        for (int i = j.length()-1; i >= 0; i--) {
+                            if(j.contains("#")){
+                                
+                            }
+                            
+                            else{
+                             Pila.push(j.charAt(i));
+                            }
+                        }
+                        numero++;
+                    }
+                    else{
+                        
+                        llave=Pila.lastElement().toString().concat(String.valueOf(cadena.charAt(Integer.valueOf(0))));
+                        
+                        accions=Tabla.get(llave);
+                    }
+                    
+                }
+               
+                
+            }
+            
+        
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton15ActionPerformed
     public  Integer seleccionarSimbolo()
     {
         
@@ -702,6 +821,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
