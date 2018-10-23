@@ -625,7 +625,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         if(aux.length()==1){
             if(!aux.contains("#")){
                 aux3=aux;
-                System.out.println(aux3);
+                //System.out.println(aux3);
             }
         }
         else{
@@ -640,12 +640,32 @@ public class UnirAutomatas extends javax.swing.JFrame
 
     }
     
-    for(String s: Reglas)
-            System.out.print(s+" ");
-    System.out.println("");
-    for(String s: Izq)
-            System.out.print(s+" ");
+//    for(String s: Reglas)
+//            System.out.print(s+" ");
+//    System.out.println("");
+//    for(String s: Izq)
+//            System.out.print(s+" ");
+   
+    LL1 l= new LL1(n);
+    int i=0;
+    for(String regla: Reglas){
+         ArrayList<Character> m = new ArrayList<Character>();
+        for (Character charact : regla.toCharArray() ) {
+            m.add(charact);
+        }
+        
+        for(Character ch : l.First(m)){
+            
+            Tabla.replace( Izq.get(i).concat(ch.toString()), regla.concat(","+(i+1)));
+            System.out.println("FIRST DE "+m+" es "+ch);
+            System.out.println("["+Izq.get(i).concat(ch.toString())+","+regla+"]");
+        }
+        i++;
+    }
     
+           for(Map.Entry<String,String> entry: Tabla.entrySet()){
+                System.out.println(entry.getKey()+" "+ entry.getValue());
+            }
     
         
         
