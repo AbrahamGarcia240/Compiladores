@@ -729,11 +729,14 @@ public class UnirAutomatas extends javax.swing.JFrame
         //System.out.println(Tabla.get(llave));
          String llave=Pila.lastElement().toString().concat(String.valueOf(cadena.charAt(0)));
          String accions=Tabla.get(llave);
-         
+         //
+       ArrayList<simbolosTablaLL1> lista = new ArrayList<simbolosTablaLL1>();
         // RECORRIDO EN LA TABLA
         while(!Pila.isEmpty()){
-            
+         
             System.out.println(Pila.toString()+"            "+cadena+"          "+accions);
+            simbolosTablaLL1 sim = new simbolosTablaLL1(Pila.toString(), cadena, Tabla.get(llave).toString());
+            lista.add(sim);
             if(Tabla.get(llave).equals("POP")){
                 Pila.pop();
                 cadena=cadena.substring(1);
@@ -744,6 +747,10 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
             else if(Tabla.get(llave).equals("ACEPTAR")){
                 JOptionPane.showMessageDialog(null, "Cadena válida");
+                TablaEvaluada tab = new TablaEvaluada();
+                tab.setVisible(true);
+                tab.mostrarValores(lista);
+                //this.dispose();
                 break;
             }
             else if(Tabla.get(llave).equals("")){
