@@ -816,7 +816,8 @@ public class UnirAutomatas extends javax.swing.JFrame
         n.printNodo();
         LR analizador = new LR(n);
         
-        for(Nodo aux: analizador.Cerradura(n.getAbajo()) ){
+        System.out.println("Cerradura de E->°E+T ");
+        for(Nodo aux: analizador.Cerradura(n.getAbajo()) ){ //cerradura de E->°E+T
             while(aux!=null){
                 System.out.print(aux.getSimbolo()+"->");
                 aux=aux.getDerecha();
@@ -824,7 +825,17 @@ public class UnirAutomatas extends javax.swing.JFrame
             System.out.println("");
         }
         
+        System.out.println("");
+        System.out.println("Operacion mover con T");
+        for(Nodo aux: analizador.Mover(analizador.Cerradura(n.getAbajo()),'T') ){ //cerradura de E->°E+T
+            while(aux!=null){
+                System.out.print(aux.getSimbolo()+"->");
+                aux=aux.getDerecha();
+            }
+            System.out.println("");
+        }
         
+         
         
     }//GEN-LAST:event_jButton16ActionPerformed
     public  Integer seleccionarSimbolo()

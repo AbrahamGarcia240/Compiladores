@@ -27,6 +27,35 @@ public class LR {
     
     }
     
+    public ArrayList<Nodo> Mover( ArrayList<Nodo> nodos, Character car){
+        //System.out.println("entree");
+        ArrayList<Nodo> resultado= new ArrayList<Nodo>();
+        for (Nodo nodo: nodos) {
+           // System.out.println(" Comparo " +this.BuscaPunto(nodo).getDerecha().getSimbolo()+" con "+ car);
+            if(this.BuscaPunto(nodo).getDerecha().getSimbolo().equals(car)){
+                //System.out.println("entre al if");
+                Nodo a=this.AntesDeBuscaPunto(nodo);// elemento antes del punto
+                Nodo b= this.BuscaPunto(nodo); // el punto
+                Nodo c= this.BuscaPunto(nodo).getDerecha(); // el elemento despues del punto
+                
+                //lados derechos
+                a.setDerecha(c);
+                b.setDerecha(c.getDerecha());
+                c.setDerecha(b);
+                
+                //hacia abajo
+                c.setAbajo(b.getAbajo());
+                resultado.add(nodo);
+                
+                
+                
+            }
+        }
+        
+        return resultado;
+    
+    }
+    
     private ArrayList<Nodo> CerraduraInterna(Nodo n){  
         ArrayList<Nodo> resultado= new ArrayList<Nodo>();
         if(this.BuscaPunto(n).getDerecha().isTerminal()){
@@ -79,7 +108,6 @@ public class LR {
                 while(aux2!=null || aux!=null){
                     
                     try {
-                        
                          if(!aux2.getSimbolo().equals(aux.getSimbolo())){
                              if(this.Verificador(nodo))
                                 resultado.add(nodo);
@@ -131,6 +159,18 @@ public class LR {
     private Nodo BuscaPunto(Nodo n){
        Nodo aux=n;
        while(aux.getSimbolo().compareTo((char)176)!=0){
+           aux=aux.getDerecha();
+       }
+       return aux;
+    }
+    
+     private Nodo AntesDeBuscaPunto(Nodo n){
+       Nodo aux=n;
+      
+       while(aux.getSimbolo().compareTo((char)176)!=0){
+           if(aux.getDerecha().getSimbolo().equals((char)176)){
+               return aux;
+           }
            aux=aux.getDerecha();
        }
        return aux;
