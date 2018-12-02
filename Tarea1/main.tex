@@ -1,0 +1,197 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage[absolute]{textpos}
+\usepackage{amsfonts}
+\usepackage{afterpage}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\author{Garcia Lomeli Abraham Amos}
+\title{Compiladores\\Ejercicios de Análisis Sintáctico Mediante LR0}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\section{Ejercicio 1}
+Para este primer ejemplo, se utilizará una gramática que representa de manera parcial a las expresiones artiméticas, la cual se define como:
+
+\begin{itemize}
+\item E'$\longrightarrow$ E
+\item E $\longrightarrow$ E+T,T
+\item T $\longrightarrow$ T*F,F
+\item F $\longrightarrow$ (E), num
+
+\end{itemize}
+
+Al numerar cada regla tendremos:
+
+\begin{itemize}
+\item \textbf{0} E'$\longrightarrow$ E
+\item \textbf{1} E $\longrightarrow$ E+T
+\item \textbf{2} E $\longrightarrow$ T
+\item \textbf{3} T $\longrightarrow$ T*F
+\item \textbf{4} T $\longrightarrow$ F
+\item \textbf{5} F $\longrightarrow$ (E)
+\item \textbf{6} F $\longrightarrow$ num
+\end{itemize}
+
+
+La cadena a evaluar será:
+\begin{center}
+\textbf{(num+num)*num*num\$}
+\end{center}
+\newpage
+\subsection{Análisis}
+A continuación se muestra el resultado del análisis mediante LR0
+\begin{center}
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Pila}} & \multicolumn{1}{c|}{\textbf{Condesa}} & \multicolumn{1}{c|}{\textbf{Acción}} \\ \hline
+0 & (num+num)*num*num\$ & D1 \\ \hline
+0(1 & num+num)*num*num\$ & D2 \\ \hline
+0(1num2 & +num)*num*num\$ & R6 F$\longrightarrow$num \\ \hline
+0(1F5 & +num)*num*num\$ & R4 T$\longrightarrow$F \\ \hline
+0(1T4 & +num)*num*num\$ & R2 E$\longrightarrow$T \\ \hline
+0(1E6 & +num)*num*num\$ & D7 \\ \hline
+0(1E6+7 & num)*num*num\$ & D2 \\ \hline
+0(1E6+7num2 & )*num*num\$ & R6 F$\longrightarrow$num \\ \hline
+0(1E6+7F5 & )*num*num\$ & R4 T$\longrightarrow$F \\ \hline
+0(1E6+7T10 & )*num*num\$ & R1 E$\longrightarrow$E+T \\ \hline
+0(1E6 & )*num*num\$ & D9 \\ \hline
+0(1E6)9 & *num*num\$ & R5 F$\longrightarrow$(E) \\ \hline
+0F5 & *num*num\$ & R4 T$\longrightarrow$F \\ \hline
+0T4 & *num*num\$ & D8 \\ \hline
+0T4*8 & num*num\$ & D2 \\ \hline
+0T4*8num2 & *num\$ & R6 F$\longrightarrow$num \\ \hline
+0T4*8F11 & *num\$ & R3 T$\longrightarrow$T*F \\ \hline
+0T4 & *num\$ & D8 \\ \hline
+0T4*8 & num\$ & D2 \\ \hline
+0T4*8num2 & \$ & R6 F$\longrightarrow$num \\ \hline
+0T4*8F11 & \$ & R3 T$\longrightarrow$T*F \\ \hline
+0T4 & \$ & R2 E$\longrightarrow$T \\ \hline
+0E3 & \$ & ACCEPT \\ \hline
+\end{tabular}
+\end{table}
+
+
+\end{center}
+
+\section{Ejercicio 2}
+Se busca obtener la tabla LR0 de la siguiente gramática:
+
+\begin{itemize}
+\item E'$\longrightarrow$ E
+\item E $\longrightarrow$ wX,aY
+\item X $\longrightarrow$ bX,z
+\item Y $\longrightarrow$ bY,z
+
+\end{itemize}
+
+\subsection{Solución:}
+Primero se realizará la cerradura epsilon:
+\begin{itemize}
+\item \textbf{C(E'$\longrightarrow$ E)}=\{E'$\longrightarrow$ E, E $\longrightarrow$ •wX,  E $\longrightarrow$ •aY \}=\textit{$S_{0}$} 
+\end{itemize}
+
+
+Luego se procede a analizar $S_{0}$.
+\begin{itemize}
+\item \textbf{Ir\_A($S_{0}$,E')}=\{E'$\longrightarrow$ E• \}=\textit{$S_{1}$} 
+\item \textbf{Ir\_A($S_{0}$,w)}=\{E$\longrightarrow$ w•X, X $\longrightarrow$ •bX, X $\longrightarrow$ •z \}=\textit{$S_{2}$} 
+\item \textbf{Ir\_A($S_{0}$,a)}=\{E$\longrightarrow$ a•Y, Y $\longrightarrow$ •bY, Y $\longrightarrow$ •z \}=\textit{$S_{3}$}
+\end{itemize}
+
+
+Como la operaciòn mover de todo conjunto donde • sea el último simbolo es vacia, se omite el analisis de $S_{1}$
+
+Ahora se realizará el análisis para $S_{2}$
+\begin{itemize}
+\item \textbf{Ir\_A($S_{2}$,X)}=\{E$\longrightarrow$ wX• \}=\textit{$S_{4}$} 
+\item \textbf{Ir\_A($S_{2}$,b)}=\{X$\longrightarrow$ b•X \}=\textit{$S_{5}$} 
+\item \textbf{Ir\_A($S_{2}$,z)}=\{X $\longrightarrow$ z• \}=\textit{$S_{6}$}
+\end{itemize}
+
+Se procede con el análisis de $S_{3}$
+
+\begin{itemize}
+\item \textbf{Ir\_A($S_{3}$,Y)}=\{E$\longrightarrow$ aY• \}=\textit{$S_{7}$} 
+\item \textbf{Ir\_A($S_{3}$,b)}=\{Y$\longrightarrow$ b•Y \}=\textit{$S_{8}$} 
+\item \textbf{Ir\_A($S_{3}$,z)}=\{Y $\longrightarrow$ z• \}=\textit{$S_{9}$}
+\end{itemize}
+
+Como la operaciòn mover de todo conjunto donde • sea el último simbolo es vacia, se omite el analisis de $S_{4}$
+
+Se procede con el análisis de $S_{5}$
+\begin{itemize}
+\item \textbf{Ir\_A($S_{5}$,X)}=\{X$\longrightarrow$ bX• \}=\textit{$S_{10}$} 
+\end{itemize}
+
+Como la operaciòn mover de todo conjunto donde • sea el último simbolo es vacia, se omite el analisis de $S_{6}$ y  $S_{7}$
+
+
+Se procede con el análisis de $S_{8}$
+\begin{itemize}
+\item \textbf{Ir\_A($S_{8}$,Y)}=\{Y$\longrightarrow$ bY• \}=\textit{$S_{11}$} 
+\end{itemize}
+
+Al finalizar lo anterior tendremos en la tabla:
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{} & \textbf{w} & \textbf{a} & \textbf{b} & \textbf{z} & \textbf{\$} & \textbf{E} & \textbf{X} & \textbf{Y} \\ \hline
+\textbf{0} & d2 & d3 &  &  &  & 1 &  &  \\ \hline
+\textbf{1} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{2} &  &  & d5 & d6 &  &  & 4 &  \\ \hline
+\textbf{3} &  &  & d8 & d9 &  &  &  & 7 \\ \hline
+\textbf{4} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{5} &  &  &  &  &  &  & 10 &  \\ \hline
+\textbf{6} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{7} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{8} &  &  &  &  &  &  &  & 11 \\ \hline
+\textbf{9} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{10} &  &  &  &  &  &  &  &  \\ \hline
+\textbf{11} &  &  &  &  &  &  &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+\newpage
+Para $S_{1}$, $S_{4}$, $S_{6}$, $S_{7}$, $S_{9}$, $S_{10}$ y $S_{11}$ sucede que el punto está al final, por lo tanto se debe hacer el \textit{follow} de su lado izquierdo, siendo asi se sabe que:
+
+\begin{itemize}
+\item Follow(E')=\{\$\}
+\item Follow(E)=\{\$\}
+\item Follow(X)=\{\$\}
+\item Follow(Y)=\{\$\}
+\end{itemize}
+
+Por lo tanto la tabla LR0 serà:
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{} & \textbf{w} & \textbf{a} & \textbf{b} & \textbf{z} & \textbf{\$} & \textbf{E} & \textbf{X} & \textbf{Y} \\ \hline
+\textbf{0} & d2 & d3 &  &  &  & 1 &  &  \\ \hline
+\textbf{1} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{2} &  &  & d5 & d6 &  &  & 4 &  \\ \hline
+\textbf{3} &  &  & d8 & d9 &  &  &  & 7 \\ \hline
+\textbf{4} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{5} &  &  &  &  &  &  & 10 &  \\ \hline
+\textbf{6} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{7} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{8} &  &  &  &  &  &  &  & 11 \\ \hline
+\textbf{9} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{10} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\textbf{11} &  &  &  &  & ACCEPT &  &  &  \\ \hline
+\end{tabular}
+\end{table}
+\end{document}
+
+
+
+

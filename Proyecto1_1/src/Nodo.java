@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -52,6 +55,41 @@ public class Nodo {
 
  Boolean isTerminal(){
  	return terminal;
+ }
+ 
+ void addItems(){
+     
+     Nodo a=this;
+     
+    
+    while(a!=null){
+        if(a.getDerecha()!=null){
+            Nodo b= a.getDerecha();
+            ArrayList<Nodo> c= new ArrayList<Nodo>();
+                int n=0;
+                while(b!=null){
+                    Nodo aux= new Nodo();
+                    aux.setSimbolo((char)176);
+                    aux.setDerecha(b);
+                    aux.setAbajo(b.getAbajo());
+                    if(n==0){
+                        a.setDerecha(aux);
+                        c.add(aux);
+                    }
+                    else{
+                        c.get(c.size()-1).setAbajo(aux);
+                    }
+                    c.add(aux);
+                    b=b.getAbajo();
+                    
+                    n++;
+                }
+                
+            
+        }
+        a=a.getAbajo();
+        
+    }
  }
  
  void printNodo(){
