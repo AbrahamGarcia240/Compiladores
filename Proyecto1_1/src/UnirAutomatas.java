@@ -814,6 +814,16 @@ public class UnirAutomatas extends javax.swing.JFrame
         n.addItems();
         System.out.println("termine");
         n.printNodo();
+        LR analizador = new LR(n);
+        
+        for(Nodo aux: analizador.Cerradura(n.getAbajo()) ){
+            while(aux!=null){
+                System.out.print(aux.getSimbolo()+"->");
+                aux=aux.getDerecha();
+            }
+            System.out.println("");
+        }
+        
         
         
     }//GEN-LAST:event_jButton16ActionPerformed
