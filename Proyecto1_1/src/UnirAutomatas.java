@@ -816,18 +816,45 @@ public class UnirAutomatas extends javax.swing.JFrame
         n.printNodo();
         LR analizador = new LR(n);
         
+        System.out.println("");
+        ArrayList<Nodo> Prueba= new ArrayList<Nodo>();
         System.out.println("Cerradura de E->°E+T ");
+        int i=0;
         for(Nodo aux: analizador.Cerradura(n.getAbajo()) ){ //cerradura de E->°E+T
+             //if(i==6){
+               Prueba.add(aux);
+             //}
+            while(aux!=null){
+                System.out.print(aux.getSimbolo()+"->");
+                aux=aux.getDerecha();
+            }
+            System.out.println("");
+            i++;
+        }
+        
+
+       
+        System.out.println("");
+        //n.printNodo();
+        System.out.println("");
+        
+        System.out.println("Operacion mover con T");
+        
+        for(Nodo aux: analizador.Mover(analizador.Cerradura(n.getAbajo()),'T') ){ //cerradura de E->°E+T
             while(aux!=null){
                 System.out.print(aux.getSimbolo()+"->");
                 aux=aux.getDerecha();
             }
             System.out.println("");
         }
-        
+
+
+
         System.out.println("");
-        System.out.println("Operacion mover con T");
-        for(Nodo aux: analizador.Mover(analizador.Cerradura(n.getAbajo()),'T') ){ //cerradura de E->°E+T
+       // n.printNodo();
+        System.out.println("");
+        System.out.println("Operacion ir a");
+        for(Nodo aux: analizador.Ir_A(Prueba,'T') ){ //cerradura de So con T
             while(aux!=null){
                 System.out.print(aux.getSimbolo()+"->");
                 aux=aux.getDerecha();

@@ -27,10 +27,52 @@ public class LR {
     
     }
     
+    
+    public ArrayList<Nodo> Ir_A(ArrayList<Nodo> nodos, Character car){
+         ArrayList<Nodo> resultado= new ArrayList<Nodo>();
+         ArrayList<Nodo> resultado2= new ArrayList<Nodo>();
+         resultado=Mover(nodos, car);
+         for (Nodo nodo : resultado) {
+             //this.ImprimeHorizontal(nodo);
+             resultado2.addAll(Cerradura(nodo));
+            
+        }
+         
+         
+         return resultado2;
+    }
+    
+    
+    public Nodo ClonarFila(Nodo n){
+        Nodo inicio=new Nodo();
+        Nodo resultado;
+        Nodo anterior=new Nodo();
+        int i=0;
+         while(n!=null){
+             resultado= new Nodo();
+             resultado.setSimbolo(n.getSimbolo());
+             resultado.setTerminal(n.isTerminal());
+             
+             if(i==0){
+                 inicio=resultado;
+             }
+             if(i!=0){
+                 anterior.setDerecha(resultado);
+             }
+            
+            anterior=resultado;
+            i++;
+            n=n.getDerecha();
+        }
+         return inicio;
+    
+    }
+    
     public ArrayList<Nodo> Mover( ArrayList<Nodo> nodos, Character car){
         //System.out.println("entree");
         ArrayList<Nodo> resultado= new ArrayList<Nodo>();
-        for (Nodo nodo: nodos) {
+        for (Nodo nodoNoClonado: nodos) {
+            Nodo nodo= this.ClonarFila(nodoNoClonado);
            // System.out.println(" Comparo " +this.BuscaPunto(nodo).getDerecha().getSimbolo()+" con "+ car);
             if(this.BuscaPunto(nodo).getDerecha().getSimbolo().equals(car)){
                 //System.out.println("entre al if");
@@ -65,8 +107,8 @@ public class LR {
         
         resultado.add(n);
         
-        for(Nodo aux: this.BuscaFilasConLadoDerecho(this.BuscaPunto(n).getDerecha().getSimbolo())){
-            //System.out.println("Hize comparacion de "+aux.getSimbolo()+" con "+this.BuscaPunto(aux).getDerecha().getSimbolo());
+        for(Nodo aux: this.BuscaFilasConLadoDerecho(this.BuscaPunto(n).getDerecha().getSimbolo())){ //busco todas las reglas que tengan a alfa1 como inicio
+           // System.out.println("Hize comparacion de "+aux.getSimbolo()+" con "+this.BuscaPunto(aux).getDerecha().getSimbolo());
             try {
                 if(aux.getSimbolo().equals(this.BuscaPunto(aux).getDerecha().getSimbolo())){
                     //System.out.println("entree con");
@@ -146,7 +188,7 @@ public class LR {
         return  false;
     }
     
-    private void ImprimeHorizontal(Nodo n){
+    public void ImprimeHorizontal(Nodo n){
         while(n!=null){
             System.out.print(n.getSimbolo()+"->");
             n=n.getDerecha();
