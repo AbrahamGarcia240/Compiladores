@@ -880,9 +880,11 @@ public class UnirAutomatas extends javax.swing.JFrame
         int j=0;
         ArrayList<String> Resp= new ArrayList<String>();
         ArrayList<ArrayList<Nodo>> Respuesta= new ArrayList<ArrayList<Nodo>>();
+        ArrayList<ArrayList<Nodo>> VieneDe= new ArrayList<ArrayList<Nodo>>();
         stack.push(analizador.Cerradura(n));
         Respuesta.add(stack.get(0));
         Resp.add("Cerradura");
+        VieneDe.add(stack.get(0));
     
         while(!stack.isEmpty()){
             ArrayList<Nodo> Sn=stack.pop(); //obtengo el ultimo elemento de la pila
@@ -898,6 +900,7 @@ public class UnirAutomatas extends javax.swing.JFrame
                     
                     
                     Respuesta.add(AAA);
+                    VieneDe.add(Sn);
                     Resp.add("S"+j+","+c);
                      
                 }
@@ -920,6 +923,10 @@ public class UnirAutomatas extends javax.swing.JFrame
                 for (Nodo no :  arrayList) {
 
                     analizador.ImprimeHorizontal(no);
+                }
+                System.out.println("Viene de");
+                for (Nodo ne  : VieneDe.get(i)) {
+                    analizador.ImprimeHorizontal(ne);
                 }
                 j++;
             }
