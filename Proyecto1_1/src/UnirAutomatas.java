@@ -910,14 +910,18 @@ public class UnirAutomatas extends javax.swing.JFrame
         }
         
         int i=0;
+        j=0;
         for (ArrayList<Nodo> arrayList : Respuesta) {
-            
-            System.out.println("S"+i);
-            System.out.println(Resp.get(i));
-            System.out.println("Tamaño: "+arrayList.size());
-            for (Nodo no :  arrayList) {
+            if(arrayList.size()!=0){
+                System.out.println("");
+                System.out.print("S"+j+"= ir a ");
+                System.out.println(Resp.get(i));
                
-                analizador.ImprimeHorizontal(no);
+                for (Nodo no :  arrayList) {
+
+                    analizador.ImprimeHorizontal(no);
+                }
+                j++;
             }
             i++;
         }
