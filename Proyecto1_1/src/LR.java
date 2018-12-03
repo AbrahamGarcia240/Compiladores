@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,6 +29,9 @@ public class LR {
     }
     
     
+    
+    
+    
     public ArrayList<Nodo> Ir_A(ArrayList<Nodo> nodos, Character car){
          ArrayList<Nodo> resultado= new ArrayList<Nodo>();
          ArrayList<Nodo> resultado2= new ArrayList<Nodo>();
@@ -42,6 +46,64 @@ public class LR {
          return resultado2;
     }
     
+    
+    private int TamHorizontal(Nodo n){
+        int i=0;
+         while(n!=null){
+             i++;
+           
+            n=n.getDerecha();
+        }
+         return i;
+    }
+    
+    public Boolean ConjuntoEsIgual(ArrayList<Nodo>a, ArrayList<Nodo>b){
+        if(a.size()!=b.size())
+            return false;
+        else{
+            int i=0;
+            for (Nodo nodo : b) {
+                for (Nodo nodo2 : a) {
+                    if(this.ComparaFilas(nodo, nodo2))
+                        i++;
+                }
+                
+            }
+            if(i==a.size())
+                return true;
+        }
+        return false;
+    
+    
+    }
+    
+    public Boolean ComparaFilas(Nodo a, Nodo b){
+        if(this.TamHorizontal(b)!=this.TamHorizontal(a))
+            return false;
+        else{
+            while(a!=null){
+                try {
+                    if(!a.getSimbolo().equals(b.getSimbolo()))
+                        return false;
+                } catch (Exception e) {
+                }
+                
+                a=a.getDerecha();
+                b=b.getDerecha();
+            }
+        
+        }
+        return true;
+    
+    }
+    
+    public Boolean ExisteEn(ArrayList<ArrayList<Nodo>> pila, ArrayList<Nodo> arreglo){
+        for (ArrayList<Nodo> lista1 : pila) {
+            if(this.ConjuntoEsIgual(lista1, arreglo))
+                return true;
+        }
+        return false;
+    }
     
     public Nodo ClonarFila(Nodo n){
         Nodo inicio=new Nodo();
@@ -73,24 +135,28 @@ public class LR {
         ArrayList<Nodo> resultado= new ArrayList<Nodo>();
         for (Nodo nodoNoClonado: nodos) {
             Nodo nodo= this.ClonarFila(nodoNoClonado);
+            
            // System.out.println(" Comparo " +this.BuscaPunto(nodo).getDerecha().getSimbolo()+" con "+ car);
-            if(this.BuscaPunto(nodo).getDerecha().getSimbolo().equals(car)){
-                //System.out.println("entre al if");
-                Nodo a=this.AntesDeBuscaPunto(nodo);// elemento antes del punto
-                Nodo b= this.BuscaPunto(nodo); // el punto
-                Nodo c= this.BuscaPunto(nodo).getDerecha(); // el elemento despues del punto
-                
-                //lados derechos
-                a.setDerecha(c);
-                b.setDerecha(c.getDerecha());
-                c.setDerecha(b);
-                
-                //hacia abajo
-                c.setAbajo(b.getAbajo());
-                resultado.add(nodo);
-                
-                
-                
+            try {
+                if(this.BuscaPunto(nodo).getDerecha().getSimbolo().equals(car)){
+                    //System.out.println("entre al if");
+                    Nodo a=this.AntesDeBuscaPunto(nodo);// elemento antes del punto
+                    Nodo b= this.BuscaPunto(nodo); // el punto
+                    Nodo c= this.BuscaPunto(nodo).getDerecha(); // el elemento despues del punto
+
+                    //lados derechos
+                    a.setDerecha(c);
+                    b.setDerecha(c.getDerecha());
+                    c.setDerecha(b);
+
+                    //hacia abajo
+                    c.setAbajo(b.getAbajo());
+                    resultado.add(nodo);
+
+
+
+                }
+            } catch (Exception e) {  
             }
         }
         

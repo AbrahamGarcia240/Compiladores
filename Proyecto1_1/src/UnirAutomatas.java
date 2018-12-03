@@ -22,8 +22,10 @@ public class UnirAutomatas extends javax.swing.JFrame
     public static String c= "Final", lxma ="" ;
     public static ArrayList<Automata> AutomatasFinales=new ArrayList<Automata>();
     public  HashMap<String,String> Tabla = new HashMap<String, String>();
+    public HashMap<String,String> Tabla2= new HashMap<String, String>();
     public  ArrayList<String> Reglas = new ArrayList<String>();
     public ArrayList<String> Izq = new ArrayList<String>();
+    public ArrayList<Character> Alfabeto= new ArrayList<Character>();
     public UnirAutomatas() 
     {
         super("Unir autómatas");
@@ -60,6 +62,7 @@ public class UnirAutomatas extends javax.swing.JFrame
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -185,6 +188,13 @@ public class UnirAutomatas extends javax.swing.JFrame
             }
         });
 
+        jButton17.setText("Tabla LL0");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,7 +226,8 @@ public class UnirAutomatas extends javax.swing.JFrame
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -277,6 +288,8 @@ public class UnirAutomatas extends javax.swing.JFrame
                                 .addComponent(jButton15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton17)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -528,6 +541,11 @@ public class UnirAutomatas extends javax.swing.JFrame
         data=data.replaceAll("(\\r|\\n)", "");
    
         System.out.println(data);
+        for (int i = 0; i <data.length(); i++) {
+            if(!Character.valueOf(data.charAt(i)).equals('>') && !Character.valueOf(data.charAt(i)).equals(';') && !Character.valueOf(data.charAt(i)).equals('|') && !Character.valueOf(data.charAt(i)).equals('e') )
+                if(!Alfabeto.contains(Character.valueOf(data.charAt(i))))
+                    Alfabeto.add(data.charAt(i));
+        }
         
         Token T=new Token(AutomatasFinales.get(0).AFNtoAFD());
          T.DefineToken("D", "Simbolo");
@@ -814,57 +832,141 @@ public class UnirAutomatas extends javax.swing.JFrame
         n.addItems();
         System.out.println("termine");
         n.printNodo();
-        LR analizador = new LR(n);
         
-        System.out.println("");
-        ArrayList<Nodo> Prueba= new ArrayList<Nodo>();
-        System.out.println("Cerradura de E->°E+T ");
-        int i=0;
-        for(Nodo aux: analizador.Cerradura(n.getAbajo()) ){ //cerradura de E->°E+T
-             //if(i==6){
-               Prueba.add(aux);
-             //}
-            while(aux!=null){
-                System.out.print(aux.getSimbolo()+"->");
-                aux=aux.getDerecha();
-            }
-            System.out.println("");
-            i++;
-        }
         
 
-       
-        System.out.println("");
-        //n.printNodo();
-        System.out.println("");
-        
-        System.out.println("Operacion mover con T");
-        
-        for(Nodo aux: analizador.Mover(analizador.Cerradura(n.getAbajo()),'T') ){ //cerradura de E->°E+T
-            while(aux!=null){
-                System.out.print(aux.getSimbolo()+"->");
-                aux=aux.getDerecha();
-            }
-            System.out.println("");
-        }
-
-
-
-        System.out.println("");
-       // n.printNodo();
-        System.out.println("");
-        System.out.println("Operacion ir a");
-        for(Nodo aux: analizador.Ir_A(Prueba,'T') ){ //cerradura de So con T
-            while(aux!=null){
-                System.out.print(aux.getSimbolo()+"->");
-                aux=aux.getDerecha();
-            }
-            System.out.println("");
-        }
+//       
+//        System.out.println("");
+//        //n.printNodo();
+//        System.out.println("");
+//        
+//        System.out.println("Operacion mover con T");
+//        
+//        for(Nodo aux: analizador.Mover(analizador.Cerradura(n.getAbajo()),'T') ){ //cerradura de E->°E+T
+//            while(aux!=null){
+//                System.out.print(aux.getSimbolo()+"->");
+//                aux=aux.getDerecha();
+//            }
+//            System.out.println("");
+//        }
+//
+//
+//
+//        System.out.println("");
+//       // n.printNodo();
+//        System.out.println("");
+//        System.out.println("Operacion ir a");
+//        for(Nodo aux: analizador.Ir_A(Prueba,'T') ){ //cerradura de So con T 
+//            while(aux!=null){
+//                System.out.print(aux.getSimbolo()+"->");
+//                aux=aux.getDerecha();
+//            }
+//            System.out.println("");
+//        }
         
          
         
     }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        // TODO add your handling code here:
+        
+        //primero creo la pila que guarda los elementos que no he analizado
+        Stack<ArrayList<Nodo>> stack = new Stack<ArrayList<Nodo>>(); 
+        
+        LR analizador = new LR(n); //aqui tengo todos mis items SIN MODIFICAR
+        
+        //Analizo So
+        int j=0;
+        ArrayList<String> Resp= new ArrayList<String>();
+        ArrayList<ArrayList<Nodo>> Respuesta= new ArrayList<ArrayList<Nodo>>();
+        stack.push(analizador.Cerradura(n));
+        Respuesta.add(stack.get(0));
+        Resp.add("Cerradura");
+    
+        while(!stack.isEmpty()){
+            ArrayList<Nodo> Sn=stack.pop(); //obtengo el ultimo elemento de la pila
+            for (Character c : Alfabeto) {
+                ArrayList<Nodo> AAA= analizador.Ir_A(Sn, c);
+               // System.out.println("Ir a "+j+","+c);
+                if(!analizador.ExisteEn(Respuesta,AAA )){
+//                    System.out.println("si");
+//                    for (Nodo no :  AAA) {
+//                        analizador.ImprimeHorizontal(no);
+//                    }
+                    stack.add(analizador.Ir_A(Sn, c));//hago ir a del ultimo elemento de la pila con cada caracter
+                    
+                    
+                    Respuesta.add(AAA);
+                    Resp.add("S"+j+","+c);
+                     
+                }
+               
+            }
+            j++;
+        
+        
+        
+        }
+        
+        int i=0;
+        for (ArrayList<Nodo> arrayList : Respuesta) {
+            
+            System.out.println("S"+i);
+            System.out.println(Resp.get(i));
+            System.out.println("Tamaño: "+arrayList.size());
+            for (Nodo no :  arrayList) {
+               
+                analizador.ImprimeHorizontal(no);
+            }
+            i++;
+        }
+        
+//        Nodo test= new Nodo();
+//        Nodo test2=new Nodo();
+//        Nodo test3=new Nodo();
+//        test.setSimbolo('E');
+//        test.setDerecha(new Nodo());
+//        test.getDerecha().setSimbolo('T');
+//        test.getDerecha().setDerecha(new Nodo());
+//        test.getDerecha().getDerecha().setSimbolo('°');
+//        test.getDerecha().getDerecha().setDerecha(new  Nodo());
+//        
+//        test2.setSimbolo('T');
+//        test2.setDerecha(new Nodo());
+//        test2.getDerecha().setSimbolo('T');
+//        test2.getDerecha().setDerecha(new Nodo());
+//        test2.getDerecha().getDerecha().setSimbolo('°');
+//        test2.getDerecha().getDerecha().setDerecha(new Nodo());
+//        test2.getDerecha().getDerecha().getDerecha().setSimbolo('*');
+//        test2.getDerecha().getDerecha().getDerecha().setDerecha(new Nodo());
+//        test2.getDerecha().getDerecha().getDerecha().getDerecha().setSimbolo('F');
+//        test2.getDerecha().getDerecha().getDerecha().getDerecha().setDerecha(new Nodo());
+//        
+//        test3.setSimbolo('T');
+//        test3.setDerecha(new Nodo());
+//        test3.getDerecha().setSimbolo('T');
+//        test3.getDerecha().setDerecha(new Nodo());
+//        test3.getDerecha().getDerecha().setSimbolo('°');
+//        test3.getDerecha().getDerecha().setDerecha(new Nodo());
+//        test3.getDerecha().getDerecha().getDerecha().setSimbolo('/');
+//        test3.getDerecha().getDerecha().getDerecha().setDerecha(new Nodo());
+//        test3.getDerecha().getDerecha().getDerecha().getDerecha().setSimbolo('F');
+//        test3.getDerecha().getDerecha().getDerecha().getDerecha().setDerecha(new Nodo());
+//        
+//        
+//        ArrayList<Nodo> tes=new ArrayList<Nodo>();
+//        
+//        tes.add(test2);
+//        //tes.add(test3);
+//        tes.add(test);
+//       
+//        
+//        System.out.println(analizador.ExisteEn(stack, tes));
+//        //System.out.println(analizador.ConjuntoEsIgual(stack.get(11), tes));
+        
+        
+    }//GEN-LAST:event_jButton17ActionPerformed
     public  Integer seleccionarSimbolo()
     {
         
@@ -899,6 +1001,7 @@ public class UnirAutomatas extends javax.swing.JFrame
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
